@@ -1,0 +1,71 @@
+CREATE DATABASE library;
+
+CREATE TABLE address(
+id BIGINT AUTO_INCREMENT,
+Zip_code INT(6) NOT NULL,
+Country VARCHAR(50) NOT NULL,
+Street VARCHAR(100) NOT NULL,
+House_number INT(6) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE authors(
+id BIGINT AUTO_INCREMENT,
+Name VARCHAR(25) NOT NULL,
+Birth_date DATE,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE role(
+id BIGINT AUTO_INCREMENT,
+Role VARCHAR(25) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE libraries(
+id BIGINT AUTO_INCREMENT,
+Name VARCHAR(25) NOT NULL,
+Address_id BIGINT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (Address_id) REFERENCES address(id)
+);
+
+CREATE TABLE users(
+id BIGINT AUTO_INCREMENT,
+Username VARCHAR(10) NOT NULL,
+Password VARCHAR(20) NOT NULL,
+Email VARCHAR(25) NOT NULL,
+Name VARCHAR(25),
+Phone_number VARCHAR(25) NOT NULL,
+Role_id BIGINT NOT NULL,
+Address_id BIGINT NOT NULL,
+Library_id BIGINT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (Address_id) REFERENCES address(id),
+FOREIGN KEY (Library_id) REFERENCES libraries(id),
+FOREIGN KEY (Role_id) REFERENCES role(id)
+);
+
+CREATE TABLE books(
+id BIGINT AUTO_INCREMENT,
+Title VARCHAR(50) NOT NULL,
+Publish_date DATE,
+Library_id BIGINT NOT NULL,
+Author_id BIGINT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (Library_id) REFERENCES libraries(id),
+FOREIGN KEY (Author_id) REFERENCES authors(id)
+);
+
+CREATE TABLE borrowed_books(
+id BIGINT AUTO_INCREMENT,
+Borrow_date DATE NOT NULL,
+Bring_back_date DATE,
+Book_id BIGINT NOT NULL,
+User_id BIGINT NOT NULL,
+Library_id BIGINT NOT NULL,
+PRIMARY KEY (id),
+FOREIGN KEY (Book_id) REFERENCES books(id),
+FOREIGN KEY (User_id ) REFERENCES users(id),
+FOREIGN KEY (Library_id) REFERENCES libraries(id)
+);
