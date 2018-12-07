@@ -30,7 +30,7 @@ public class BorrowedBookEntity {
     @Column(name = "Bring_back_date")
     private Date bringBackDate;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Book_id")
     private BookEntity book;
     

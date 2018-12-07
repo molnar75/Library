@@ -41,7 +41,7 @@ public class UserEntity {
         @Column(name = "Phone_number")
         private String phoneNumber;
         
-        @OneToOne(fetch = FetchType.LAZY)
+        @OneToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "Role_id")
         private RoleEntity role;
         
@@ -49,7 +49,7 @@ public class UserEntity {
         @JoinColumn(name = "Address_id")
         private AddressEntity address;
         
-        @ManyToOne(fetch = FetchType.EAGER)
+        @ManyToOne(fetch = FetchType.LAZY)
         @JoinColumn(name = "Library_id")
         private LibraryEntity libraries;
                 
