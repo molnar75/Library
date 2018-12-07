@@ -49,9 +49,9 @@ public class UserEntity {
         @JoinColumn(name = "Address_id")
         private AddressEntity address;
         
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "Library_id")
-        private LibraryEntity libraries;
+        private LibraryEntity library;
                 
         public long getId() {
             return id;

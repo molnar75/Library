@@ -31,13 +31,13 @@ public class BookEntity {
     @Column(name = "Publish_date")
     private Date publishDate;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "Author_id")
     private AuthorEntity author;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Library_id")
-    private LibraryEntity libraries;
+    private LibraryEntity library;
 
     public long getId() {
         return id;
