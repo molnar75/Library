@@ -22,9 +22,14 @@ public class BorrowedBookDaoImpl implements BorrowedBookDao {
         return false;
     }
 
-    public List<BorrowedBookDto> getAllBorrowedBook() {
+    public List<BorrowedBookDto> getAllBorrowedBooks() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    public boolean getBorrowedBookById(long borrowedBookId) {
+        // TODO Auto-generated method stub
+        return false;
     }
 
 }

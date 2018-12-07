@@ -27,4 +27,9 @@ public class LibraryDaoImpl implements LibraryDao {
         return null;
     }
 
+    public boolean getLibraryById(long libraryId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

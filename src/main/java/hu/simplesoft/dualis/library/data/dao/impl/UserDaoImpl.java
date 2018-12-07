@@ -27,4 +27,9 @@ public class UserDaoImpl implements UserDao {
         return null;
     }
 
+    public boolean getUserById(long userId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

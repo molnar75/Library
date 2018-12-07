@@ -10,6 +10,8 @@ public interface LibraryDao {
     boolean updateLibrary(LibraryDto libraryDto);
 
     boolean deleteLibrary(long libraryId);
+    
+    boolean getLibraryById(long libraryId);
 
     List<LibraryDto> getAllLibraries();
 }

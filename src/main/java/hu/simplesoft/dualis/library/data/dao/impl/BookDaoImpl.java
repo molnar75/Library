@@ -27,4 +27,9 @@ public class BookDaoImpl implements BookDao {
         return null;
     }
 
+    public boolean getBookById(long bookId) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

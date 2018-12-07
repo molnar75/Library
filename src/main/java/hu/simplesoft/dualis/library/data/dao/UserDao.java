@@ -10,6 +10,8 @@ public interface UserDao {
     boolean updateUser(UserDto userDto);
 
     boolean deleteUser(long userId);
+    
+    boolean getUserById(long userId);
 
     List<UserDto> getAllUsers();
 }
