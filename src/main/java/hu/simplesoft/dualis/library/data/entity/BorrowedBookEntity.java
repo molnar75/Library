@@ -40,6 +40,7 @@ public class BorrowedBookEntity {
     
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Library_id")
+    private LibraryEntity library;
 
     
     public long getId() {
