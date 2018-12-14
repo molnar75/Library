@@ -3,6 +3,7 @@ package hu.simplesoft.dualis.library.service.dto;
 
 public class AddressDto {
     
+    private long id;
     private int ZipCode;
     private String country;
     private String street;
@@ -12,6 +13,18 @@ public class AddressDto {
     }
 
     
+    
+    public long getId() {
+        return id;
+    }
+
+
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
     public int getZipCode() {
         return ZipCode;
     }

@@ -8,18 +8,42 @@ import hu.simplesoft.dualis.library.service.dto.BookDto;
 public class BookDaoImpl implements BookDao {
 
     public boolean createBook(BookDto bookDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to create
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
     public boolean updateBook(BookDto bookDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to update
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
     public boolean deleteBook(long bookId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to delete
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
     public List<BookDto> getAllBooks() {
@@ -28,8 +52,16 @@ public class BookDaoImpl implements BookDao {
     }
 
     public boolean getBookById(long bookId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to get book by id
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
 }

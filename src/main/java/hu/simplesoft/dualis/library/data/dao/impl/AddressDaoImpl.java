@@ -8,23 +8,55 @@ import hu.simplesoft.dualis.library.service.dto.AddressDto;
 public class AddressDaoImpl implements AddressDao {
 
     public boolean createAddress(AddressDto addressDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to create
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+        
+        return isSuccess;
     }
 
     public boolean updateAddress(AddressDto addressDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to update
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+        
+        return isSuccess;
     }
 
     public boolean deleteAddress(long addressId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to delete
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+               
+        return isSuccess;
     }
 
     public boolean getAddressById(long addressId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to get address by id 
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
     public List<AddressDto> getAllAddresses() {

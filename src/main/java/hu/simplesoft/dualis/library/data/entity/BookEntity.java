@@ -71,4 +71,30 @@ public class BookEntity {
     }
 
 
+    
+    public AuthorEntity getAuthor() {
+        return author;
+    }
+
+
+    
+    public void setAuthor(AuthorEntity author) {
+        this.author = author;
+    }
+
+
+    
+    public LibraryEntity getLibrary() {
+        return library;
+    }
+
+
+    
+    public void setLibrary(LibraryEntity library) {
+        this.library = library;
+    }
+    
+    
+
+
 }

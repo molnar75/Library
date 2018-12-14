@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class BorrowedBookDto {
     
+    private long id;
     private Date borrowedDate;
     private Date bringBackDate;
     private BookDto book;
@@ -14,6 +15,18 @@ public class BorrowedBookDto {
     }
 
     
+    
+    public long getId() {
+        return id;
+    }
+
+
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
     public Date getBorrowedDate() {
         return borrowedDate;
     }

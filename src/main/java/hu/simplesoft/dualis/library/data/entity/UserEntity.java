@@ -112,5 +112,41 @@ public class UserEntity {
             this.phoneNumber = phoneNumber;
         }
 
+
+        
+        public RoleEntity getRole() {
+            return role;
+        }
+
+
+        
+        public void setRole(RoleEntity role) {
+            this.role = role;
+        }
+
+
+        
+        public AddressEntity getAddress() {
+            return address;
+        }
+
+
+        
+        public void setAddress(AddressEntity address) {
+            this.address = address;
+        }
+
+
+        
+        public LibraryEntity getLibrary() {
+            return library;
+        }
+
+
+        
+        public void setLibrary(LibraryEntity library) {
+            this.library = library;
+        }
+
  }
 

@@ -8,18 +8,42 @@ import hu.simplesoft.dualis.library.service.dto.BorrowedBookDto;
 public class BorrowedBookDaoImpl implements BorrowedBookDao {
 
     public boolean createBorrowedBook(BorrowedBookDto borrowedBookDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to create
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
     public boolean updateBorrowedBook(BorrowedBookDto borrowedBookDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to update
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
     public boolean deleteBorrowedBook(long borrowedBookId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to delete
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
     public List<BorrowedBookDto> getAllBorrowedBooks() {
@@ -28,8 +52,16 @@ public class BorrowedBookDaoImpl implements BorrowedBookDao {
     }
 
     public boolean getBorrowedBookById(long borrowedBookId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to get borrowed book by id
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+                
+        return isSuccess;
     }
 
 }

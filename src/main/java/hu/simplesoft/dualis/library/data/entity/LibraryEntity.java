@@ -48,6 +48,18 @@ public class LibraryEntity {
     public void setName(String name) {
         this.name = name;
     }
+
+
+    
+    public AddressEntity getAddress() {
+        return address;
+    }
+
+
+    
+    public void setAddress(AddressEntity address) {
+        this.address = address;
+    }
     
     
     

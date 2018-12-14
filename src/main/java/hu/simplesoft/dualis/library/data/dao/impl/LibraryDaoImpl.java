@@ -8,18 +8,42 @@ import hu.simplesoft.dualis.library.service.dto.LibraryDto;
 public class LibraryDaoImpl implements LibraryDao {
 
     public boolean createLibrary(LibraryDto libraryDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to create
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+             
+        return isSuccess;
     }
 
     public boolean updateLibrary(LibraryDto libraryDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to update
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+               
+        return isSuccess;
     }
 
     public boolean deleteLibrary(long libraryId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to delete
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+              
+        return isSuccess;
     }
 
     public List<LibraryDto> getAllLibraries() {
@@ -28,8 +52,16 @@ public class LibraryDaoImpl implements LibraryDao {
     }
 
     public boolean getLibraryById(long libraryId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to get library by id
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+               
+        return isSuccess;
     }
 
 }

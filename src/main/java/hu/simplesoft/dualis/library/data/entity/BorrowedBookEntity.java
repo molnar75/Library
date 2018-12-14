@@ -71,6 +71,42 @@ public class BorrowedBookEntity {
     public void setBringBackDate(Date bringBackDate) {
         this.bringBackDate = bringBackDate;
     }
+
+
+    
+    public BookEntity getBook() {
+        return book;
+    }
+
+
+    
+    public void setBook(BookEntity book) {
+        this.book = book;
+    }
+
+
+    
+    public UserEntity getUser() {
+        return user;
+    }
+
+
+    
+    public void setUser(UserEntity user) {
+        this.user = user;
+    }
+
+
+    
+    public LibraryEntity getLibrary() {
+        return library;
+    }
+
+
+    
+    public void setLibrary(LibraryEntity library) {
+        this.library = library;
+    }
     
     
 }

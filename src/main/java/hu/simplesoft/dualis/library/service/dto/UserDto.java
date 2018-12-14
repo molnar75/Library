@@ -2,7 +2,8 @@ package hu.simplesoft.dualis.library.service.dto;
 
 public class UserDto {
     
-    private String username;
+    private long id;
+    private String userName;
     private String password;
     private String email;
     private String name;
@@ -14,12 +15,22 @@ public class UserDto {
     public UserDto()  {
     }
     
-    public String getUsername() {
-        return username;
+    
+    public long getId() {
+        return id;
+    }
+
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
     }
     
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
     
     public String getPassword() {

@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class BookDto {
 
+    private long id;
     private String title;
     private Date publishDate;
     private AuthorDto author;
@@ -13,6 +14,18 @@ public class BookDto {
     }
 
     
+    
+    public long getId() {
+        return id;
+    }
+
+
+    
+    public void setId(long id) {
+        this.id = id;
+    }
+
+
     public String getTitle() {
         return title;
     }

@@ -9,20 +9,41 @@ public class UserDaoImpl implements UserDao {
 
     public boolean createUser(UserDto userDto) {
         boolean isSuccess = false;
-        
-        
-        
+        try {
+            //try to create
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+             
         return isSuccess;
     }
 
     public boolean updateUser(UserDto userDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to update
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+       
+        return isSuccess;
     }
 
     public boolean deleteUser(long userId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to delete
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+        
+        return isSuccess;
     }
 
     public List<UserDto> getAllUsers() {
@@ -31,8 +52,16 @@ public class UserDaoImpl implements UserDao {
     }
 
     public boolean getUserById(long userId) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        try {
+            //try to get user by id
+
+            isSuccess = true;
+        } catch (RuntimeException e) {
+            
+        }
+        
+        return isSuccess;
     }
 
 }
