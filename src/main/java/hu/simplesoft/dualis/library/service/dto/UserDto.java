@@ -1,9 +1,5 @@
 package hu.simplesoft.dualis.library.service.dto;
 
-import hu.simplesoft.dualis.library.data.entity.AddressEntity;
-import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
-import hu.simplesoft.dualis.library.data.entity.RoleEntity;
-
 public class UserDto {
     
     private String username;
@@ -11,9 +7,9 @@ public class UserDto {
     private String email;
     private String name;
     private String phoneNumber;
-    private RoleEntity role;
-    private AddressEntity address;
-    private LibraryEntity library;
+    private RoleDto role;
+    private AddressDto address;
+    private LibraryDto library;
     
     public UserDto()  {
     }
@@ -58,27 +54,27 @@ public class UserDto {
         this.phoneNumber = phoneNumber;
     }
     
-    public RoleEntity getRole() {
+    public RoleDto getRole() {
         return role;
     }
     
-    public void setRole(RoleEntity role) {
+    public void setRole(RoleDto role) {
         this.role = role;
     }
     
-    public AddressEntity getAddress() {
+    public AddressDto getAddress() {
         return address;
     }
     
-    public void setAddress(AddressEntity address) {
+    public void setAddress(AddressDto address) {
         this.address = address;
     }
     
-    public LibraryEntity getLibrary() {
+    public LibraryDto getLibrary() {
         return library;
     }
     
-    public void setLibrary(LibraryEntity library) {
+    public void setLibrary(LibraryDto library) {
         this.library = library;
     }
 

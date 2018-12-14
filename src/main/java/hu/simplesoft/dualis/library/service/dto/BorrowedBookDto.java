@@ -2,17 +2,13 @@ package hu.simplesoft.dualis.library.service.dto;
 
 import java.util.Date;
 
-import hu.simplesoft.dualis.library.data.entity.BookEntity;
-import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
-import hu.simplesoft.dualis.library.data.entity.UserEntity;
-
 public class BorrowedBookDto {
     
     private Date borrowedDate;
     private Date bringBackDate;
-    private BookEntity book;
-    private UserEntity user;
-    private LibraryEntity library;
+    private BookDto book;
+    private UserDto user;
+    private LibraryDto library;
     
     public BorrowedBookDto() {
     }
@@ -38,32 +34,32 @@ public class BorrowedBookDto {
     }
 
     
-    public BookEntity getBook() {
+    public BookDto getBook() {
         return book;
     }
 
     
-    public void setBook(BookEntity book) {
+    public void setBook(BookDto book) {
         this.book = book;
     }
 
     
-    public UserEntity getUser() {
+    public UserDto getUser() {
         return user;
     }
 
     
-    public void setUser(UserEntity user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 
     
-    public LibraryEntity getLibrary() {
+    public LibraryDto getLibrary() {
         return library;
     }
 
     
-    public void setLibrary(LibraryEntity library) {
+    public void setLibrary(LibraryDto library) {
         this.library = library;
     }
 

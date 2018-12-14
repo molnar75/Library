@@ -8,8 +8,11 @@ import hu.simplesoft.dualis.library.service.dto.UserDto;
 public class UserDaoImpl implements UserDao {
 
     public boolean createUser(UserDto userDto) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean isSuccess = false;
+        
+        
+        
+        return isSuccess;
     }
 
     public boolean updateUser(UserDto userDto) {

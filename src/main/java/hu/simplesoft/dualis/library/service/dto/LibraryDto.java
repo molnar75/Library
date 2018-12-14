@@ -1,11 +1,9 @@
 package hu.simplesoft.dualis.library.service.dto;
 
-import hu.simplesoft.dualis.library.data.entity.AddressEntity;
-
 public class LibraryDto {
     
     private String name;
-    private AddressEntity address;
+    private AddressDto address;
     
     public LibraryDto()  {
     }
@@ -18,11 +16,11 @@ public class LibraryDto {
         this.name = name;
     }
     
-    public AddressEntity getAddress() {
+    public AddressDto getAddress() {
         return address;
     }
     
-    public void setAddress(AddressEntity address) {
+    public void setAddress(AddressDto address) {
         this.address = address;
     }
 

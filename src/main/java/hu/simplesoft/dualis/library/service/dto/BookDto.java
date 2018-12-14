@@ -2,15 +2,12 @@ package hu.simplesoft.dualis.library.service.dto;
 
 import java.util.Date;
 
-import hu.simplesoft.dualis.library.data.entity.AuthorEntity;
-import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
-
 public class BookDto {
 
     private String title;
     private Date publishDate;
-    private AuthorEntity author;
-    private LibraryEntity library;
+    private AuthorDto author;
+    private LibraryDto library;
     
     public BookDto() {
     }
@@ -36,22 +33,22 @@ public class BookDto {
     }
 
     
-    public AuthorEntity getAuthor() {
+    public AuthorDto getAuthor() {
         return author;
     }
 
     
-    public void setAuthor(AuthorEntity author) {
+    public void setAuthor(AuthorDto author) {
         this.author = author;
     }
 
     
-    public LibraryEntity getLibrary() {
+    public LibraryDto getLibrary() {
         return library;
     }
 
     
-    public void setLibrary(LibraryEntity library) {
+    public void setLibrary(LibraryDto library) {
         this.library = library;
     }
     
