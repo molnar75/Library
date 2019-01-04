@@ -12,7 +12,7 @@ public interface AddressDao {
 
     boolean deleteAddress(long addressId);
     
-    boolean getAddressById(long addressId);
+    AddressDto getAddressById(long addressId);
     
     List<AddressDto> getAllAddresses();
 }

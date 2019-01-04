@@ -1,20 +1,36 @@
 package hu.simplesoft.dualis.library.data.dao.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import hu.simplesoft.dualis.library.data.dao.AddressDao;
+import hu.simplesoft.dualis.library.data.entity.AddressEntity;
+import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
 public class AddressDaoImpl implements AddressDao {
+    
+    private static final Logger LOGGER = LogManager.getLogger(AddressDaoImpl.class);
+    
+    private EntityManager entityManager;
 
     public boolean createAddress(AddressDto addressDto) {
         boolean isSuccess = false;
+        
+        AddressEntity newAdressEntity = AddressMapper.AddressDtoToEntity(addressDto);
+        
         try {
-            //try to create
+            this.entityManager.persist(newAdressEntity);
 
             isSuccess = true;
         } catch (RuntimeException e) {
-            
+            LOGGER.error("Adress creation failed", e);
         }
         
         return isSuccess;
@@ -22,46 +38,53 @@ public class AddressDaoImpl implements AddressDao {
 
     public boolean updateAddress(AddressDto addressDto) {
         boolean isSuccess = false;
-        try {
-            //try to update
+        AddressEntity addressEntityForUpdate = this.entityManager.find(AddressEntity.class, addressDto.getId());
+        AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
 
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            
+        if (addressEntityForUpdate != null) {
+            try {
+                addressEntityForUpdate.setCountry(newAddressEntity.getCountry());
+                addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
+                addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
+                addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
+    
+                isSuccess = true;
+            } catch (RuntimeException e) {
+                LOGGER.error("Adress update failed", e);
+            }
         }
-        
         return isSuccess;
     }
 
     public boolean deleteAddress(long addressId) {
         boolean isSuccess = false;
+        AddressEntity addressEntityForDelete = this.entityManager.find(AddressEntity.class, addressId);
         try {
-            //try to delete
-
-            isSuccess = true;
+                this.entityManager.remove(addressEntityForDelete);
+                isSuccess = true;
         } catch (RuntimeException e) {
-            
+            LOGGER.error("Adress deletion failed", e);
         }
                
         return isSuccess;
     }
 
-    public boolean getAddressById(long addressId) {
-        boolean isSuccess = false;
-        try {
-            //try to get address by id 
+    public AddressDto getAddressById(long addressId) {
+        AddressEntity foundEntity = this.entityManager.find(AddressEntity.class, addressId);
 
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            
-        }
-                
-        return isSuccess;
+        return AddressMapper.AddressEntityToDto(foundEntity);
     }
 
     public List<AddressDto> getAllAddresses() {
-        // TODO Auto-generated method stub
-        return null;
+        TypedQuery<AddressEntity> queryForAllAddresses = this.entityManager.createQuery("SELECT  h FROM address h", AddressEntity.class);
+        List<AddressEntity> allAddressEntities = queryForAllAddresses.getResultList();
+        List<AddressDto> allAddressDto = new ArrayList<AddressDto>();
+        
+        for (AddressEntity addressEntity : allAddressEntities) {
+            allAddressDto.add(AddressMapper.AddressEntityToDto(addressEntity));
+        }
+
+        return allAddressDto;
     }
 
 }
