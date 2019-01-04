@@ -1,5 +1,8 @@
 package hu.simplesoft.dualis.library.data.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.simplesoft.dualis.library.data.entity.AuthorEntity;
 import hu.simplesoft.dualis.library.service.dto.AuthorDto;
 
@@ -23,6 +26,16 @@ public class AuthorMapper {
         authorDto.setBirthDate(authorEntity.getBirthDate());
         
         return authorDto;
+    }
+    
+    public static List<AuthorDto> getAllAuthorsToDto(List<AuthorEntity> allAuthorsEntities){
+        List<AuthorDto> allAuthorsDto = new ArrayList<AuthorDto>();
+        
+        for (AuthorEntity authorEntity : allAuthorsEntities) {
+            allAuthorsDto.add(AuthorEntityToDto(authorEntity));
+        }
+        
+        return allAuthorsDto;
     }
     
 }

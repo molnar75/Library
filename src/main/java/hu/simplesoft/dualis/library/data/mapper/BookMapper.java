@@ -1,5 +1,8 @@
 package hu.simplesoft.dualis.library.data.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.simplesoft.dualis.library.data.entity.BookEntity;
 import hu.simplesoft.dualis.library.service.dto.BookDto;
 
@@ -27,6 +30,16 @@ public class BookMapper {
         bookDto.setLibrary(LibraryMapper.LibraryEntityToDto(bookEntity.getLibrary()));
  
         return bookDto;
+    }
+    
+    public static List<BookDto> getAllBooksToDto(List<BookEntity> allBooksEntities){
+        List<BookDto> allBooksDto = new ArrayList<BookDto>();
+        
+        for (BookEntity bookEntity : allBooksEntities) {
+            allBooksDto.add(BookEntityToDto(bookEntity));
+        }
+        
+        return allBooksDto;
     }
 
 }

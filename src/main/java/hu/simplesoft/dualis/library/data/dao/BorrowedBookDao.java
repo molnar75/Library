@@ -12,7 +12,7 @@ public interface BorrowedBookDao {
 
     boolean deleteBorrowedBook(long borrowedBookId);
     
-    boolean getBorrowedBookById(long borrowedBookId);
+    BorrowedBookDto getBorrowedBookById(long borrowedBookId);
 
     List<BorrowedBookDto> getAllBorrowedBooks();
 }

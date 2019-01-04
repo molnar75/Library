@@ -11,7 +11,7 @@ public interface LibraryDao {
 
     boolean deleteLibrary(long libraryId);
     
-    boolean getLibraryById(long libraryId);
+    LibraryDto getLibraryById(long libraryId);
 
     List<LibraryDto> getAllLibraries();
 }

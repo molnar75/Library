@@ -1,6 +1,9 @@
 package hu.simplesoft.dualis.library.data.mapper;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.simplesoft.dualis.library.data.entity.UserEntity;
 import hu.simplesoft.dualis.library.service.dto.UserDto;
 
@@ -36,6 +39,16 @@ public class UserMapper {
         
         
         return userDto;
+    }
+    
+    public static List<UserDto> getAllUsersToDto(List<UserEntity> allUsersEntities){
+        List<UserDto> allUsersDto = new ArrayList<UserDto>();
+        
+        for (UserEntity userEntity : allUsersEntities) {
+            allUsersDto.add(UserEntityToDto(userEntity));
+        }
+        
+        return allUsersDto;
     }
 
 }

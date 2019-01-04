@@ -2,66 +2,97 @@ package hu.simplesoft.dualis.library.data.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
+import org.springframework.stereotype.Repository;
+
 import hu.simplesoft.dualis.library.data.dao.UserDao;
+import hu.simplesoft.dualis.library.data.entity.UserEntity;
+import hu.simplesoft.dualis.library.data.mapper.UserMapper;
 import hu.simplesoft.dualis.library.service.dto.UserDto;
 
+@Repository
+@Transactional
 public class UserDaoImpl implements UserDao {
+    
+    @PersistenceContext
+    private EntityManager entityManager;
 
+    @Override
     public boolean createUser(UserDto userDto) {
         boolean isSuccess = false;
+        UserEntity newUserEntity = UserMapper.UserDtoToEntity(userDto);
+        
         try {
-            //try to create
+            this.entityManager.persist(newUserEntity);
 
             isSuccess = true;
         } catch (RuntimeException e) {
-            
+            //LOG
         }
             
         return isSuccess;
     }
 
+    @Override
     public boolean updateUser(UserDto userDto) {
         boolean isSuccess = false;
-        try {
-            //try to update
+        UserEntity userEntityForUpdate = this.entityManager.find(UserEntity.class, userDto.getId());
+        UserEntity newUserEntity = UserMapper.UserDtoToEntity(userDto);
 
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            
+        if (userEntityForUpdate != null) {
+            try {
+                userEntityForUpdate.setAddress(newUserEntity.getAddress());
+                userEntityForUpdate.setEmail(newUserEntity.getEmail());
+                userEntityForUpdate.setLibrary(newUserEntity.getLibrary());
+                userEntityForUpdate.setName(newUserEntity.getName());
+                userEntityForUpdate.setPassword(newUserEntity.getPassword());
+                userEntityForUpdate.setPhoneNumber(newUserEntity.getPhoneNumber());
+                userEntityForUpdate.setRole(newUserEntity.getRole());
+                userEntityForUpdate.setUserName(newUserEntity.getUserName());
+    
+                isSuccess = true;
+            } catch (RuntimeException e) {
+                //LOG
+            }
         }
        
         return isSuccess;
     }
 
+    @Override
     public boolean deleteUser(long userId) {
         boolean isSuccess = false;
+        UserEntity userEntityForDelete = this.entityManager.find(UserEntity.class, userId);
+        
         try {
-            //try to delete
+            this.entityManager.remove(userEntityForDelete);
 
             isSuccess = true;
         } catch (RuntimeException e) {
-            
+            //LOG
         }
         
         return isSuccess;
     }
 
+    @Override
     public List<UserDto> getAllUsers() {
-        // TODO Auto-generated method stub
-        return null;
+        TypedQuery<UserEntity> queryForAllUser = this.entityManager.createQuery("SELECT  h FROM borrowed_books h", UserEntity.class);
+        List<UserEntity> allUserEntities = queryForAllUser.getResultList();
+        List<UserDto> allUsersDto = UserMapper.getAllUsersToDto(allUserEntities);
+
+        return allUsersDto;
     }
 
-    public boolean getUserById(long userId) {
-        boolean isSuccess = false;
-        try {
-            //try to get user by id
+    @Override
+    public UserDto getUserById(long userId) {
+        UserEntity foundEntity = this.entityManager.find(UserEntity.class, userId);
 
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            
-        }
-        
-        return isSuccess;
+        return UserMapper.UserEntityToDto(foundEntity);
     }
 
 }

@@ -36,7 +36,7 @@ public class AddressMapper {
         List<AddressDto> allAddressDto = new ArrayList<AddressDto>();
         
         for (AddressEntity addressEntity : allAddressEntities) {
-            allAddressDto.add(AddressMapper.AddressEntityToDto(addressEntity));
+            allAddressDto.add(AddressEntityToDto(addressEntity));
         }
         
         return allAddressDto;

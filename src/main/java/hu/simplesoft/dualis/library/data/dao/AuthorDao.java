@@ -12,7 +12,7 @@ public interface AuthorDao {
 
     boolean deleteAuthor(long authorId);
     
-    boolean getAuthorById(long authorId);
+    AuthorDto getAuthorById(long authorId);
     
     List<AuthorDto> getAllAuthors();
 }
