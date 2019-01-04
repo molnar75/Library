@@ -1,5 +1,8 @@
 package hu.simplesoft.dualis.library.data.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import hu.simplesoft.dualis.library.data.entity.AddressEntity;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
@@ -27,6 +30,16 @@ public class AddressMapper {
         addressDto.setHouseNumber(addressEntity.getHouseNumber());
         
         return addressDto;
+    }
+    
+    public static List<AddressDto> getAllAdressesToDto(List<AddressEntity> allAddressEntities){
+        List<AddressDto> allAddressDto = new ArrayList<AddressDto>();
+        
+        for (AddressEntity addressEntity : allAddressEntities) {
+            allAddressDto.add(AddressMapper.AddressEntityToDto(addressEntity));
+        }
+        
+        return allAddressDto;
     }
 
 }

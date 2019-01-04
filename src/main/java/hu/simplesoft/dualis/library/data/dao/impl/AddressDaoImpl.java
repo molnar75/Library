@@ -1,13 +1,9 @@
 package hu.simplesoft.dualis.library.data.dao.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import hu.simplesoft.dualis.library.data.dao.AddressDao;
 import hu.simplesoft.dualis.library.data.entity.AddressEntity;
@@ -15,9 +11,7 @@ import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
 public class AddressDaoImpl implements AddressDao {
-    
-    private static final Logger LOGGER = LogManager.getLogger(AddressDaoImpl.class);
-    
+        
     private EntityManager entityManager;
 
     public boolean createAddress(AddressDto addressDto) {
@@ -30,7 +24,7 @@ public class AddressDaoImpl implements AddressDao {
 
             isSuccess = true;
         } catch (RuntimeException e) {
-            LOGGER.error("Adress creation failed", e);
+            //LOG
         }
         
         return isSuccess;
@@ -50,7 +44,7 @@ public class AddressDaoImpl implements AddressDao {
     
                 isSuccess = true;
             } catch (RuntimeException e) {
-                LOGGER.error("Adress update failed", e);
+                //LOG
             }
         }
         return isSuccess;
@@ -63,7 +57,7 @@ public class AddressDaoImpl implements AddressDao {
                 this.entityManager.remove(addressEntityForDelete);
                 isSuccess = true;
         } catch (RuntimeException e) {
-            LOGGER.error("Adress deletion failed", e);
+            //LOG
         }
                
         return isSuccess;
@@ -78,11 +72,7 @@ public class AddressDaoImpl implements AddressDao {
     public List<AddressDto> getAllAddresses() {
         TypedQuery<AddressEntity> queryForAllAddresses = this.entityManager.createQuery("SELECT  h FROM address h", AddressEntity.class);
         List<AddressEntity> allAddressEntities = queryForAllAddresses.getResultList();
-        List<AddressDto> allAddressDto = new ArrayList<AddressDto>();
-        
-        for (AddressEntity addressEntity : allAddressEntities) {
-            allAddressDto.add(AddressMapper.AddressEntityToDto(addressEntity));
-        }
+        List<AddressDto> allAddressDto = AddressMapper.getAllAdressesToDto(allAddressEntities);
 
         return allAddressDto;
     }
