@@ -2,9 +2,6 @@ package hu.simplesoft.dualis.library.data.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
@@ -12,82 +9,51 @@ import org.springframework.stereotype.Repository;
 import hu.simplesoft.dualis.library.data.dao.BorrowedBookDao;
 import hu.simplesoft.dualis.library.data.entity.BorrowedBookEntity;
 import hu.simplesoft.dualis.library.data.mapper.BorrowedBookMapper;
+import hu.simplesoft.dualis.library.data.repository.BorrowedBookRepository;
+import hu.simplesoft.dualis.library.exception.NoElementException;
+import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.BorrowedBookDto;
 
 @Repository
 @Transactional
 public class BorrowedBookDaoImpl implements BorrowedBookDao {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private BorrowedBookRepository borrowedBookRepository;
     
     @Override
-    public boolean createBorrowedBook(BorrowedBookDto borrowedBookDto) {
-        boolean isSuccess = false;
+    public void createBorrowedBook(BorrowedBookDto borrowedBookDto) throws PersistEcxeption {
         BorrowedBookEntity newBorrowedBookEntity = BorrowedBookMapper.BorrowedBookDtoToEntity(borrowedBookDto);
-        
-        try {
-            this.entityManager.persist(newBorrowedBookEntity);
+        this.borrowedBookRepository.createBorrowedBook(newBorrowedBookEntity);
 
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            //LOG
-        }
-                
-        return isSuccess;
     }
 
     @Override
-    public boolean updateBorrowedBook(BorrowedBookDto borrowedBookDto) {
-        boolean isSuccess = false;
-        BorrowedBookEntity borrowedBookEntityForUpdate = this.entityManager.find(BorrowedBookEntity.class, borrowedBookDto.getId());
+    public void updateBorrowedBook(BorrowedBookDto borrowedBookDto) throws PersistEcxeption {
+        BorrowedBookEntity borrowedBookEntityForUpdate = this.borrowedBookRepository.getBorrowedBookById(borrowedBookDto.getId());
         BorrowedBookEntity newBorrowedBookEntity = BorrowedBookMapper.BorrowedBookDtoToEntity(borrowedBookDto);
 
         if (borrowedBookEntityForUpdate != null) {
-            try {
-                borrowedBookEntityForUpdate.setBook(newBorrowedBookEntity.getBook());
-                borrowedBookEntityForUpdate.setBorrowDate(newBorrowedBookEntity.getBorrowDate());
-                borrowedBookEntityForUpdate.setBringBackDate(newBorrowedBookEntity.getBringBackDate());
-                borrowedBookEntityForUpdate.setLibrary(newBorrowedBookEntity.getLibrary());
-                borrowedBookEntityForUpdate.setUser(newBorrowedBookEntity.getUser());
-    
-                isSuccess = true;
-            } catch (RuntimeException e) {
-                //LOG
-            }
+            this.borrowedBookRepository.updateBorrowedBook(borrowedBookEntityForUpdate, newBorrowedBookEntity);
         }
-                
-        return isSuccess;
     }
 
     @Override
-    public boolean deleteBorrowedBook(long borrowedBookId) {
-        boolean isSuccess = false;
-        BorrowedBookEntity borrowedBookEntityForDelete = this.entityManager.find(BorrowedBookEntity.class, borrowedBookId);
-        
-        try {
-            this.entityManager.remove(borrowedBookEntityForDelete);
-
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            //LOG
-        }
-                
-        return isSuccess;
+    public void deleteBorrowedBook(long borrowedBookId) throws PersistEcxeption {
+        BorrowedBookEntity borrowedBookEntityForDelete = this.borrowedBookRepository.getBorrowedBookById(borrowedBookId);
+        this.borrowedBookRepository.deleteBorrowedBook(borrowedBookEntityForDelete);
     }
 
     @Override
-    public List<BorrowedBookDto> getAllBorrowedBooks() {
-        TypedQuery<BorrowedBookEntity> queryForAllBorrowedBooks = this.entityManager.createQuery("SELECT  h FROM borrowed_books h", BorrowedBookEntity.class);
-        List<BorrowedBookEntity> allBorrowedBookEntities = queryForAllBorrowedBooks.getResultList();
+    public List<BorrowedBookDto> getAllBorrowedBooks() throws NoElementException {
+        List<BorrowedBookEntity> allBorrowedBookEntities = this.borrowedBookRepository.getAllBorrowedBooks();
         List<BorrowedBookDto> allBorrowedBooksDto = BorrowedBookMapper.getAllBorrowedBooksToDto(allBorrowedBookEntities);
 
         return allBorrowedBooksDto;
     }
 
     @Override
-    public BorrowedBookDto getBorrowedBookById(long borrowedBookId) {
-        BorrowedBookEntity foundEntity = this.entityManager.find(BorrowedBookEntity.class, borrowedBookId);
+    public BorrowedBookDto getBorrowedBookById(long borrowedBookId) throws PersistEcxeption {
+        BorrowedBookEntity foundEntity = this.borrowedBookRepository.getBorrowedBookById(borrowedBookId);
 
         return BorrowedBookMapper.BorrowedBookEntityToDto(foundEntity);
     }

@@ -2,16 +2,18 @@ package hu.simplesoft.dualis.library.data.dao;
 
 import java.util.List;
 
+import hu.simplesoft.dualis.library.exception.NoElementException;
+import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.UserDto;
 
 public interface UserDao {
-    boolean createUser(UserDto userDto);
+    void createUser(UserDto userDto) throws PersistEcxeption;
 
-    boolean updateUser(UserDto userDto);
+    void updateUser(UserDto userDto) throws PersistEcxeption;
 
-    boolean deleteUser(long userId);
+    void deleteUser(long userId) throws PersistEcxeption;
     
-    UserDto getUserById(long userId);
+    UserDto getUserById(long userId) throws PersistEcxeption;
 
-    List<UserDto> getAllUsers();
+    List<UserDto> getAllUsers() throws NoElementException;
 }

@@ -2,91 +2,55 @@ package hu.simplesoft.dualis.library.data.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
 
 import hu.simplesoft.dualis.library.data.dao.BookDao;
 import hu.simplesoft.dualis.library.data.entity.BookEntity;
 import hu.simplesoft.dualis.library.data.mapper.BookMapper;
+import hu.simplesoft.dualis.library.data.repository.BookRepository;
+import hu.simplesoft.dualis.library.exception.NoElementException;
+import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.BookDto;
 
-@Repository
 @Transactional
 public class BookDaoImpl implements BookDao {
     
-    @PersistenceContext
-    private EntityManager entityManager;
+    private BookRepository bookRepository;
 
     @Override
-    public boolean createBook(BookDto bookDto) {
-        boolean isSuccess = false;
+    public void createBook(BookDto bookDto) throws PersistEcxeption {
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
-       
-        try {
-            this.entityManager.persist(newBookEntity);
-
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            //LOG
-        }
-                
-        return isSuccess;
+        this.bookRepository.createBook(newBookEntity);
     }
 
     @Override
-    public boolean updateBook(BookDto bookDto) {
-        boolean isSuccess = false;
-        BookEntity bookEntityForUpdate = this.entityManager.find(BookEntity.class, bookDto.getId());
+    public void updateBook(BookDto bookDto) throws PersistEcxeption {
+        BookEntity bookEntityForUpdate = this.bookRepository.getBookById(bookDto.getId());
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
 
         if (bookEntityForUpdate != null) {
-            try {
-                bookEntityForUpdate.setAuthor(newBookEntity.getAuthor());
-                bookEntityForUpdate.setLibrary(newBookEntity.getLibrary());
-                bookEntityForUpdate.setPublishDate(newBookEntity.getPublishDate());
-                bookEntityForUpdate.setTitle(newBookEntity.getTitle());
-    
-                isSuccess = true;
-            } catch (RuntimeException e) {
-                //LOG
-            }
+            this.bookRepository.updateBook(bookEntityForUpdate, newBookEntity);
         }
-                
-        return isSuccess;
     }
 
     @Override
-    public boolean deleteBook(long bookId) {
-        boolean isSuccess = false;
-        BookEntity bookEntityForDelete = this.entityManager.find(BookEntity.class, bookId);
-        
-        try {
-            this.entityManager.remove(bookEntityForDelete);
+    public void deleteBook(long bookId) throws PersistEcxeption {
+        BookEntity bookEntityForDelete = this.bookRepository.getBookById(bookId);
+        this.bookRepository.deleteBook(bookEntityForDelete);
 
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            //LOG
-        }
-                
-        return isSuccess;
     }
 
     @Override
-    public List<BookDto> getAllBooks() {
-        TypedQuery<BookEntity> queryForAllBooks = this.entityManager.createQuery("SELECT  h FROM books h", BookEntity.class);
-        List<BookEntity> allBookEntities = queryForAllBooks.getResultList();
+    public List<BookDto> getAllBooks() throws NoElementException {
+        List<BookEntity> allBookEntities = this.bookRepository.getAllBooks();
         List<BookDto> allBooksDto = BookMapper.getAllBooksToDto(allBookEntities);
 
         return allBooksDto;
     }
 
     @Override
-    public BookDto getBookById(long bookId) {
-        BookEntity foundEntity = this.entityManager.find(BookEntity.class, bookId);
+    public BookDto getBookById(long bookId) throws PersistEcxeption {
+        BookEntity foundEntity = this.bookRepository.getBookById(bookId);
 
         return BookMapper.BookEntityToDto(foundEntity);
     }

@@ -2,17 +2,19 @@ package hu.simplesoft.dualis.library.data.dao;
 
 import java.util.List;
 
+import hu.simplesoft.dualis.library.exception.NoElementException;
+import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.BookDto;
 
 public interface BookDao {
     
-    boolean createBook(BookDto bookDto);
+    void createBook(BookDto bookDto) throws PersistEcxeption;
 
-    boolean updateBook(BookDto bookDto);
+    void updateBook(BookDto bookDto) throws PersistEcxeption;
 
-    boolean deleteBook(long bookId);
+    void deleteBook(long bookId) throws PersistEcxeption;
     
-    BookDto getBookById(long bookId);
+    BookDto getBookById(long bookId) throws PersistEcxeption;
     
-    List<BookDto> getAllBooks();
+    List<BookDto> getAllBooks() throws NoElementException;
 }

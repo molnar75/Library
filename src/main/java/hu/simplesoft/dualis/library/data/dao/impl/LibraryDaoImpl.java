@@ -2,91 +2,55 @@ package hu.simplesoft.dualis.library.data.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
-import org.springframework.stereotype.Repository;
 
 import hu.simplesoft.dualis.library.data.dao.LibraryDao;
 import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
 import hu.simplesoft.dualis.library.data.mapper.LibraryMapper;
+import hu.simplesoft.dualis.library.data.repository.LibraryRepository;
+import hu.simplesoft.dualis.library.exception.NoElementException;
+import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
 
-@Repository
 @Transactional
 public class LibraryDaoImpl implements LibraryDao {
-    
-    @PersistenceContext
-    private EntityManager entityManager;
+
+    private LibraryRepository libraryRepository;
 
     @Override
-    public boolean createLibrary(LibraryDto libraryDto) {
-        boolean isSuccess = false;
+    public void createLibrary(LibraryDto libraryDto) throws PersistEcxeption {
         LibraryEntity newLibraryEntity = LibraryMapper.LibraryDtoToEntity(libraryDto);
-        
-        try {
-            this.entityManager.persist(newLibraryEntity);
-
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            //LOG
-        }
-             
-        return isSuccess;
+        this.libraryRepository.createLibrary(newLibraryEntity);
     }
 
     @Override
-    public boolean updateLibrary(LibraryDto libraryDto) {
-        boolean isSuccess = false;
-        LibraryEntity libraryEntityForUpdate = this.entityManager.find(LibraryEntity.class, libraryDto.getId());
+    public void updateLibrary(LibraryDto libraryDto) throws PersistEcxeption {
+        LibraryEntity libraryEntityForUpdate = this.libraryRepository.getLibraryById(libraryDto.getId());
         LibraryEntity newLibraryEntity = LibraryMapper.LibraryDtoToEntity(libraryDto);
 
         if (libraryEntityForUpdate != null) {
-            try {
-                libraryEntityForUpdate.setAddress(newLibraryEntity.getAddress());
-                libraryEntityForUpdate.setName(newLibraryEntity.getName());
-                
-                isSuccess = true;
-            } catch (RuntimeException e) {
-                //LOG
-            }
+            this.libraryRepository.updateLibrary(libraryEntityForUpdate, newLibraryEntity);
         }
-               
-        return isSuccess;
     }
 
     @Override
-    public boolean deleteLibrary(long libraryId) {
-        boolean isSuccess = false;
-        LibraryEntity libraryEntityForDelete = this.entityManager.find(LibraryEntity.class, libraryId);
-        
-        try {
-            this.entityManager.remove(libraryEntityForDelete);
-
-            isSuccess = true;
-        } catch (RuntimeException e) {
-            //LOG
-        }
-              
-        return isSuccess;
+    public void deleteLibrary(long libraryId) throws PersistEcxeption {
+        LibraryEntity libraryEntityForDelete = this.libraryRepository.getLibraryById(libraryId);
+        this.libraryRepository.deleteLibrary(libraryEntityForDelete);
     }
 
     @Override
-    public List<LibraryDto> getAllLibraries() {
-        TypedQuery<LibraryEntity> queryForAllLibraries = this.entityManager.createQuery("SELECT  h FROM libraries h", LibraryEntity.class);
-        List<LibraryEntity> allLibraryEntities = queryForAllLibraries.getResultList();
+    public List<LibraryDto> getAllLibraries() throws NoElementException {
+        List<LibraryEntity> allLibraryEntities = this.libraryRepository.getAllLibraries();
         List<LibraryDto> allLibrariesDto = LibraryMapper.getAllLibrariesToDto(allLibraryEntities);
 
         return allLibrariesDto;
     }
     
     @Override
-    public LibraryDto getLibraryById(long libraryId) {
-        LibraryEntity foundEntity = this.entityManager.find(LibraryEntity.class, libraryId);
+    public LibraryDto getLibraryById(long libraryId) throws PersistEcxeption {
+        LibraryEntity foundEntity = this.libraryRepository.getLibraryById(libraryId);
 
         return LibraryMapper.LibraryEntityToDto(foundEntity);
     }
-
 }
