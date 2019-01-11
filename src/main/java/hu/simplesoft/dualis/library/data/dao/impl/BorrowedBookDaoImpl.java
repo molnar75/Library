@@ -33,7 +33,13 @@ public class BorrowedBookDaoImpl implements BorrowedBookDao {
         BorrowedBookEntity newBorrowedBookEntity = BorrowedBookMapper.BorrowedBookDtoToEntity(borrowedBookDto);
 
         if (borrowedBookEntityForUpdate != null) {
-            this.borrowedBookRepository.updateBorrowedBook(borrowedBookEntityForUpdate, newBorrowedBookEntity);
+            borrowedBookEntityForUpdate.setBook(newBorrowedBookEntity.getBook());
+            borrowedBookEntityForUpdate.setBorrowDate(newBorrowedBookEntity.getBorrowDate());
+            borrowedBookEntityForUpdate.setBringBackDate(newBorrowedBookEntity.getBringBackDate());
+            borrowedBookEntityForUpdate.setLibrary(newBorrowedBookEntity.getLibrary());
+            borrowedBookEntityForUpdate.setUser(newBorrowedBookEntity.getUser());
+            
+            this.borrowedBookRepository.updateBorrowedBook(borrowedBookEntityForUpdate);
         }
     }
 

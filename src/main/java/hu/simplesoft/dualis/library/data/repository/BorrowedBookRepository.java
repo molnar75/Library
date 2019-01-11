@@ -10,7 +10,7 @@ public interface BorrowedBookRepository {
 
     void createBorrowedBook(BorrowedBookEntity newBorrowedBookEntity) throws PersistEcxeption;
 
-    void updateBorrowedBook(BorrowedBookEntity borrowedBookEntityForUpdate, BorrowedBookEntity newBorrowedBookEntity) throws PersistEcxeption;
+    void updateBorrowedBook(BorrowedBookEntity borrowedBookEntityForUpdate) throws PersistEcxeption;
 
     void deleteBorrowedBook(BorrowedBookEntity borrowedBookEntityForDelete) throws PersistEcxeption;
 

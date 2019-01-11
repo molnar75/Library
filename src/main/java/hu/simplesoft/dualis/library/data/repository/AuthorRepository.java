@@ -10,7 +10,7 @@ public interface AuthorRepository {
 
     void createAuthor(AuthorEntity newAuthorEntity) throws PersistEcxeption;
 
-    void updateAuthor(AuthorEntity authorEntityForUpdate, AuthorEntity newAuthorEntity) throws PersistEcxeption;
+    void updateAuthor(AuthorEntity authorEntityForUpdate) throws PersistEcxeption;
 
     void deleteAuthor(AuthorEntity authorEntityForDelete) throws PersistEcxeption;
 

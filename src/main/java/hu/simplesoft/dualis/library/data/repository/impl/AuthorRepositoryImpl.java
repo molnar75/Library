@@ -29,11 +29,8 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     }
 
     @Override
-    public void updateAuthor(AuthorEntity authorEntityForUpdate, AuthorEntity newAuthorEntity) throws PersistEcxeption {
+    public void updateAuthor(AuthorEntity authorEntityForUpdate) throws PersistEcxeption {
         try {
-            authorEntityForUpdate.setBirthDate(newAuthorEntity.getBirthDate());
-            authorEntityForUpdate.setName(newAuthorEntity.getName());
-
             this.entityManager.merge(authorEntityForUpdate);
         } catch (RuntimeException e) {
             throw new PersistEcxeption("Couldn't update the author!", e);

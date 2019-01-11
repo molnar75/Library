@@ -29,7 +29,12 @@ public class AddressDaoImpl implements AddressDao {
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
 
         if (addressEntityForUpdate != null) {
-            this.addressRepository.updateAddress(addressEntityForUpdate, newAddressEntity);
+            addressEntityForUpdate.setCountry(newAddressEntity.getCountry());
+            addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
+            addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
+            addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
+            
+            this.addressRepository.updateAddress(addressEntityForUpdate);
         }
     }
 

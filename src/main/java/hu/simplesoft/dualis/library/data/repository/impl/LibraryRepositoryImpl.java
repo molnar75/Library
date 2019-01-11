@@ -18,7 +18,7 @@ public class LibraryRepositoryImpl implements LibraryRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     @Override
     public void createLibrary(LibraryEntity newLibraryEntity) throws PersistEcxeption {
         try {
@@ -29,11 +29,8 @@ public class LibraryRepositoryImpl implements LibraryRepository {
     }
 
     @Override
-    public void updateLibrary(LibraryEntity libraryEntityForUpdate, LibraryEntity newLibraryEntity) throws PersistEcxeption {
+    public void updateLibrary(LibraryEntity libraryEntityForUpdate) throws PersistEcxeption {
         try {
-            libraryEntityForUpdate.setAddress(newLibraryEntity.getAddress());
-            libraryEntityForUpdate.setName(newLibraryEntity.getName());
-
             this.entityManager.merge(libraryEntityForUpdate);
         } catch (RuntimeException e) {
             throw new PersistEcxeption("Couldn't update the library!", e);

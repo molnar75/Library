@@ -10,7 +10,7 @@ public interface LibraryRepository {
 
     void createLibrary(LibraryEntity newLibraryEntity) throws PersistEcxeption;
 
-    void updateLibrary(LibraryEntity libraryEntityForUpdate, LibraryEntity newLibraryEntity) throws PersistEcxeption;
+    void updateLibrary(LibraryEntity libraryEntityForUpdate) throws PersistEcxeption;
 
     void deleteLibrary(LibraryEntity libraryEntityForDelete) throws PersistEcxeption;
 

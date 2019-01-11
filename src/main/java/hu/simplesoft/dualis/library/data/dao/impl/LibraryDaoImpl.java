@@ -29,7 +29,10 @@ public class LibraryDaoImpl implements LibraryDao {
         LibraryEntity newLibraryEntity = LibraryMapper.LibraryDtoToEntity(libraryDto);
 
         if (libraryEntityForUpdate != null) {
-            this.libraryRepository.updateLibrary(libraryEntityForUpdate, newLibraryEntity);
+            libraryEntityForUpdate.setAddress(newLibraryEntity.getAddress());
+            libraryEntityForUpdate.setName(newLibraryEntity.getName());
+            
+            this.libraryRepository.updateLibrary(libraryEntityForUpdate);
         }
     }
 

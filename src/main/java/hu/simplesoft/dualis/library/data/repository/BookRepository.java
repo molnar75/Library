@@ -10,7 +10,7 @@ public interface BookRepository {
     
     void createBook(BookEntity newBookEntity) throws PersistEcxeption;
 
-    void updateBook(BookEntity bookEntityForUpdate, BookEntity newBookEntity) throws PersistEcxeption;
+    void updateBook(BookEntity bookEntityForUpdate) throws PersistEcxeption;
 
     void deleteBook(BookEntity bookEntityForDelete) throws PersistEcxeption;
 

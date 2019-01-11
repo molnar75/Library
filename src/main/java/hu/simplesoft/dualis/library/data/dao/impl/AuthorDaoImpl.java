@@ -29,7 +29,10 @@ class AuthorDaoImpl implements AuthorDao {
         AuthorEntity newAuthorEntity = AuthorMapper.AuthorDtoToEntity(authorDto);
 
         if (authorEntityForUpdate != null) {
-            this.authorRepository.updateAuthor(authorEntityForUpdate, newAuthorEntity);
+            authorEntityForUpdate.setBirthDate(newAuthorEntity.getBirthDate());
+            authorEntityForUpdate.setName(newAuthorEntity.getName());
+            
+            this.authorRepository.updateAuthor(authorEntityForUpdate);
         }
     }
 

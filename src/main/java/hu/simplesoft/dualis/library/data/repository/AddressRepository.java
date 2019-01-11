@@ -10,7 +10,7 @@ public interface AddressRepository {
 
     void createAddress(AddressEntity newAddressEntity) throws PersistEcxeption;
 
-    void updateAddress(AddressEntity addressEntityForUpdate, AddressEntity newAddressEntity) throws PersistEcxeption;
+    void updateAddress(AddressEntity addressEntityForUpdate) throws PersistEcxeption;
 
     void deleteAddress(AddressEntity addressEntityForDelete) throws PersistEcxeption;
 

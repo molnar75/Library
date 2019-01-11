@@ -29,13 +29,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void updateBook(BookEntity bookEntityForUpdate, BookEntity newBookEntity) throws PersistEcxeption {
+    public void updateBook(BookEntity bookEntityForUpdate) throws PersistEcxeption {
         try {
-            bookEntityForUpdate.setAuthor(newBookEntity.getAuthor());
-            bookEntityForUpdate.setLibrary(newBookEntity.getLibrary());
-            bookEntityForUpdate.setPublishDate(newBookEntity.getPublishDate());
-            bookEntityForUpdate.setTitle(newBookEntity.getTitle());
-
             this.entityManager.merge(bookEntityForUpdate);
         } catch (RuntimeException e) {
             throw new PersistEcxeption("Couldn't update the book!", e);

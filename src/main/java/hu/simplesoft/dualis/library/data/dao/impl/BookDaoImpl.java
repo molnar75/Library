@@ -29,7 +29,12 @@ public class BookDaoImpl implements BookDao {
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
 
         if (bookEntityForUpdate != null) {
-            this.bookRepository.updateBook(bookEntityForUpdate, newBookEntity);
+            bookEntityForUpdate.setAuthor(newBookEntity.getAuthor());
+            bookEntityForUpdate.setLibrary(newBookEntity.getLibrary());
+            bookEntityForUpdate.setPublishDate(newBookEntity.getPublishDate());
+            bookEntityForUpdate.setTitle(newBookEntity.getTitle());
+            
+            this.bookRepository.updateBook(bookEntityForUpdate);
         }
     }
 

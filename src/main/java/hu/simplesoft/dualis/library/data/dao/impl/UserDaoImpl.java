@@ -29,7 +29,17 @@ public class UserDaoImpl implements UserDao {
         UserEntity newUserEntity = UserMapper.UserDtoToEntity(userDto);
 
         if (userEntityForUpdate != null) {
-            this.userRepository.updateUser(userEntityForUpdate, newUserEntity);
+            
+            userEntityForUpdate.setAddress(newUserEntity.getAddress());
+            userEntityForUpdate.setEmail(newUserEntity.getEmail());
+            userEntityForUpdate.setLibrary(newUserEntity.getLibrary());
+            userEntityForUpdate.setName(newUserEntity.getName());
+            userEntityForUpdate.setPassword(newUserEntity.getPassword());
+            userEntityForUpdate.setPhoneNumber(newUserEntity.getPhoneNumber());
+            userEntityForUpdate.setRole(newUserEntity.getRole());
+            userEntityForUpdate.setUserName(newUserEntity.getUserName()); 
+            
+            this.userRepository.updateUser(userEntityForUpdate);
         }
     }
 

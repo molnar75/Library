@@ -18,29 +18,23 @@ public class BorrowedBookRepositoryImpl implements BorrowedBookRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
-    
+
     @Override
     public void createBorrowedBook(BorrowedBookEntity newBorrowedBookEntity) throws PersistEcxeption {
         try {
             this.entityManager.persist(newBorrowedBookEntity);
         } catch (RuntimeException e) {
             throw new PersistEcxeption("Couldn't create the borrowed book", e);
-        }       
+        }
     }
 
     @Override
-    public void updateBorrowedBook(BorrowedBookEntity borrowedBookEntityForUpdate, BorrowedBookEntity newBorrowedBookEntity) throws PersistEcxeption {
+    public void updateBorrowedBook(BorrowedBookEntity borrowedBookEntityForUpdate) throws PersistEcxeption {
         try {
-            borrowedBookEntityForUpdate.setBook(newBorrowedBookEntity.getBook());
-            borrowedBookEntityForUpdate.setBorrowDate(newBorrowedBookEntity.getBorrowDate());
-            borrowedBookEntityForUpdate.setBringBackDate(newBorrowedBookEntity.getBringBackDate());
-            borrowedBookEntityForUpdate.setLibrary(newBorrowedBookEntity.getLibrary());
-            borrowedBookEntityForUpdate.setUser(newBorrowedBookEntity.getUser());
-
             this.entityManager.merge(borrowedBookEntityForUpdate);
         } catch (RuntimeException e) {
             throw new PersistEcxeption("Couldn't update the borrowed book!", e);
-        }    
+        }
     }
 
     @Override

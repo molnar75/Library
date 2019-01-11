@@ -6,11 +6,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import org.springframework.stereotype.Repository;
+
 import hu.simplesoft.dualis.library.data.entity.UserEntity;
 import hu.simplesoft.dualis.library.data.repository.UserRepository;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 
+@Repository
 public class UserRepositoryImpl implements UserRepository {
     
     @PersistenceContext
@@ -26,17 +29,8 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public void updateUser(UserEntity userEntityForUpdate, UserEntity newUserEntity) throws PersistEcxeption {
+    public void updateUser(UserEntity userEntityForUpdate) throws PersistEcxeption {
         try {
-            userEntityForUpdate.setAddress(newUserEntity.getAddress());
-            userEntityForUpdate.setEmail(newUserEntity.getEmail());
-            userEntityForUpdate.setLibrary(newUserEntity.getLibrary());
-            userEntityForUpdate.setName(newUserEntity.getName());
-            userEntityForUpdate.setPassword(newUserEntity.getPassword());
-            userEntityForUpdate.setPhoneNumber(newUserEntity.getPhoneNumber());
-            userEntityForUpdate.setRole(newUserEntity.getRole());
-            userEntityForUpdate.setUserName(newUserEntity.getUserName());
-
             this.entityManager.merge(userEntityForUpdate);
         } catch (RuntimeException e) {
             throw new PersistEcxeption("Couldn't update the user!", e);

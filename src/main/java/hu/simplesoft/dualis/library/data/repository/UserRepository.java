@@ -9,7 +9,7 @@ import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 public interface UserRepository {
     void createUser(UserEntity newUserEntity) throws PersistEcxeption;
 
-    void updateUser(UserEntity userEntityForUpdate, UserEntity newUserEntity) throws PersistEcxeption;
+    void updateUser(UserEntity userEntityForUpdate) throws PersistEcxeption;
 
     void deleteUser(UserEntity userEntityForDelete) throws PersistEcxeption;
 

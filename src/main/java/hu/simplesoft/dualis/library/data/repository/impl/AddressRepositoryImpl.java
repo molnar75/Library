@@ -29,13 +29,8 @@ public class AddressRepositoryImpl implements AddressRepository {
     }
 
     @Override
-    public void updateAddress(AddressEntity addressEntityForUpdate, AddressEntity newAddressEntity) throws PersistEcxeption {
+    public void updateAddress(AddressEntity addressEntityForUpdate) throws PersistEcxeption {
         try {
-            addressEntityForUpdate.setCountry(newAddressEntity.getCountry());
-            addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
-            addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
-            addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
-
             this.entityManager.merge(addressEntityForUpdate);
         } catch (RuntimeException e) {
             throw new PersistEcxeption("Couldn't update the address!", e);
