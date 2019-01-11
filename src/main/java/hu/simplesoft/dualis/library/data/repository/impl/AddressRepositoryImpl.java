@@ -21,8 +21,7 @@ public class AddressRepositoryImpl implements AddressRepository{
     public void createAddress(AddressEntity newAddressEntity) throws PersistEcxeption {
        try { 
            this.entityManager.persist(newAddressEntity); 
-       }catch (RuntimeException e)
-       {
+       }catch(RuntimeException e) {
           throw new PersistEcxeption("Couldn't create the address",e);
        }
     }
@@ -34,6 +33,8 @@ public class AddressRepositoryImpl implements AddressRepository{
             addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
             addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
             addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
+            
+            this.entityManager.merge(addressEntityForUpdate);
        }catch(RuntimeException e) {
            throw new PersistEcxeption("Couldn't update the address!",e);
        }
