@@ -2,88 +2,80 @@ package hu.simplesoft.dualis.library.data.dao.impl;
 
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-import org.springframework.stereotype.Repository;
-
 import hu.simplesoft.dualis.library.data.dao.AddressDao;
 import hu.simplesoft.dualis.library.data.entity.AddressEntity;
+import hu.simplesoft.dualis.library.data.entity.repository.AddressRepository;
 import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
+import hu.simplesoft.dualis.library.exception.MyException;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
-@Repository
 @Transactional
 public class AddressDaoImpl implements AddressDao {
         
-    @PersistenceContext
-    private EntityManager entityManager;
-
+    private AddressRepository addressRepository;
     
     @Override
-    public boolean createAddress(AddressDto addressDto) {
+    public boolean createAddress(AddressDto addressDto) throws MyException {
         boolean isSuccess = false;
         
-        AddressEntity newAdressEntity = AddressMapper.AddressDtoToEntity(addressDto);
+        AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
         
         try {
-            this.entityManager.persist(newAdressEntity);
+            this.addressRepository.createAddress(newAddressEntity);
 
             isSuccess = true;
         } catch (RuntimeException e) {
-            //LOG
+            throw new MyException("Creation failed.");
         }
         
         return isSuccess;
     }
 
     @Override
-    public boolean updateAddress(AddressDto addressDto) {
+    public boolean updateAddress(AddressDto addressDto) throws MyException {
         boolean isSuccess = false;
-        AddressEntity addressEntityForUpdate = this.entityManager.find(AddressEntity.class, addressDto.getId());
+        AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
 
         if (addressEntityForUpdate != null) {
-            try {
-                addressEntityForUpdate.setCountry(newAddressEntity.getCountry());
-                addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
-                addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
-                addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
+            try {         
+                this.addressRepository.updateAddress(addressEntityForUpdate, newAddressEntity);
     
                 isSuccess = true;
             } catch (RuntimeException e) {
-                //LOG
+                throw new MyException("Update failed.");
             }
         }
         return isSuccess;
     }
     
     @Override
-    public boolean deleteAddress(long addressId) {
+    public boolean deleteAddress(long addressId) throws MyException {
         boolean isSuccess = false;
-        AddressEntity addressEntityForDelete = this.entityManager.find(AddressEntity.class, addressId);
+        AddressEntity addressEntityForDelete = this.addressRepository.getAddressById(addressId);
         try {
-                this.entityManager.remove(addressEntityForDelete);
+                this.addressRepository.deleteAddress(addressEntityForDelete);
                 isSuccess = true;
         } catch (RuntimeException e) {
-            //LOG
+            throw new MyException("Deletation failed.");
         }
                
         return isSuccess;
     }
 
     @Override
-    public AddressDto getAddressById(long addressId) {
-        AddressEntity foundEntity = this.entityManager.find(AddressEntity.class, addressId);
+    public AddressDto getAddressById(long addressId) throws MyException {
+        AddressEntity foundEntity = this.addressRepository.getAddressById(addressId);
 
         return AddressMapper.AddressEntityToDto(foundEntity);
     }
 
     @Override
-    public List<AddressDto> getAllAddresses() {
-        TypedQuery<AddressEntity> queryForAllAddresses = this.entityManager.createQuery("SELECT  h FROM address h", AddressEntity.class);
+    public List<AddressDto> getAllAddresses() throws MyException {
+        TypedQuery<AddressEntity> queryForAllAddresses = this.addressRepository.getAllAddresses();
         List<AddressEntity> allAddressEntities = queryForAllAddresses.getResultList();
         List<AddressDto> allAddressDto = AddressMapper.getAllAdressesToDto(allAddressEntities);
 
