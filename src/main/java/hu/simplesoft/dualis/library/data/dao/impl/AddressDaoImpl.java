@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import hu.simplesoft.dualis.library.data.dao.AddressDao;
 import hu.simplesoft.dualis.library.data.entity.AddressEntity;
 import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
@@ -17,8 +19,8 @@ import hu.simplesoft.dualis.library.service.dto.AddressDto;
 @Transactional
 public class AddressDaoImpl implements AddressDao {
 
+    @Autowired
     private AddressRepository addressRepository;
-    private ObjectValidator objectValidator;
 
     @Override
     public void createAddress(AddressDto addressDto) throws PersistEcxeption {
@@ -31,7 +33,7 @@ public class AddressDaoImpl implements AddressDao {
         AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
 
-        objectValidator.entityIsNull(addressEntityForUpdate, addressDto.getId());
+        ObjectValidator.entityIsNull(addressEntityForUpdate, addressDto.getId());
 
         addressEntityForUpdate = updateNewEntity(addressEntityForUpdate, newAddressEntity);
 
@@ -42,7 +44,7 @@ public class AddressDaoImpl implements AddressDao {
     public void deleteAddress(long addressId) throws PersistEcxeption, IsNullException {
         AddressEntity addressEntityForDelete = this.addressRepository.getAddressById(addressId);
 
-        objectValidator.entityIsNull(addressEntityForDelete, addressId);
+        ObjectValidator.entityIsNull(addressEntityForDelete, addressId);
 
         this.addressRepository.deleteAddress(addressEntityForDelete);
     }
