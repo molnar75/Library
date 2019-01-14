@@ -28,11 +28,8 @@ public class AddressDaoImpl implements AddressDao {
         AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
 
-        if (addressEntityForUpdate != null) {
-            addressEntityForUpdate.setCountry(newAddressEntity.getCountry());
-            addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
-            addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
-            addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
+        if (entityValidator(addressEntityForUpdate)) {
+            addressEntityForUpdate = setNewEntity(addressEntityForUpdate, newAddressEntity);
             
             this.addressRepository.updateAddress(addressEntityForUpdate);
         }
@@ -57,6 +54,24 @@ public class AddressDaoImpl implements AddressDao {
         List<AddressDto> allAddressDto = AddressMapper.getAllAdressesToDto(allAddressEntities);
 
         return allAddressDto;
+    }
+
+    @Override
+    public AddressEntity setNewEntity(AddressEntity addressEntityForUpdate, AddressEntity newAddressEntity) {
+        addressEntityForUpdate.setCountry(newAddressEntity.getCountry());
+        addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
+        addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
+        addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
+        
+        return addressEntityForUpdate;
+    }
+
+    @Override
+    public boolean entityValidator(AddressEntity addressEntityForUpdate) {
+        if(addressEntityForUpdate != null) {
+            return true;
+        }
+        return false;
     }
 
 }
