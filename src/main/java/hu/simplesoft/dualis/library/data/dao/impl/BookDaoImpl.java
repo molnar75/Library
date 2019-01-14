@@ -4,10 +4,14 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import hu.simplesoft.dualis.library.data.dao.BookDao;
 import hu.simplesoft.dualis.library.data.entity.BookEntity;
 import hu.simplesoft.dualis.library.data.mapper.BookMapper;
 import hu.simplesoft.dualis.library.data.repository.BookRepository;
+import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
+import hu.simplesoft.dualis.library.exception.IsNullException;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.BookDto;
@@ -15,6 +19,7 @@ import hu.simplesoft.dualis.library.service.dto.BookDto;
 @Transactional
 public class BookDaoImpl implements BookDao {
     
+    @Autowired
     private BookRepository bookRepository;
 
     @Override
@@ -24,25 +29,21 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public void updateBook(BookDto bookDto) throws PersistEcxeption {
+    public void updateBook(BookDto bookDto) throws PersistEcxeption, IsNullException {
         BookEntity bookEntityForUpdate = this.bookRepository.getBookById(bookDto.getId());
+        ObjectValidator.entityIsNull(bookEntityForUpdate, bookDto.getId());
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
-
-        if (bookEntityForUpdate != null) {
-            bookEntityForUpdate.setAuthor(newBookEntity.getAuthor());
-            bookEntityForUpdate.setLibrary(newBookEntity.getLibrary());
-            bookEntityForUpdate.setPublishDate(newBookEntity.getPublishDate());
-            bookEntityForUpdate.setTitle(newBookEntity.getTitle());
+           
+        bookEntityForUpdate = updateNewEntity(bookEntityForUpdate, newBookEntity);
             
-            this.bookRepository.updateBook(bookEntityForUpdate);
-        }
+        this.bookRepository.updateBook(bookEntityForUpdate);
     }
 
     @Override
-    public void deleteBook(long bookId) throws PersistEcxeption {
+    public void deleteBook(long bookId) throws PersistEcxeption, IsNullException {
         BookEntity bookEntityForDelete = this.bookRepository.getBookById(bookId);
+        ObjectValidator.entityIsNull(bookEntityForDelete, bookId);
         this.bookRepository.deleteBook(bookEntityForDelete);
-
     }
 
     @Override
@@ -60,4 +61,12 @@ public class BookDaoImpl implements BookDao {
         return BookMapper.BookEntityToDto(foundEntity);
     }
 
+    private BookEntity updateNewEntity(BookEntity bookEntityForUpdate,BookEntity newBookEntity) {
+        bookEntityForUpdate.setAuthor(newBookEntity.getAuthor());
+        bookEntityForUpdate.setLibrary(newBookEntity.getLibrary());
+        bookEntityForUpdate.setPublishDate(newBookEntity.getPublishDate());
+        bookEntityForUpdate.setTitle(newBookEntity.getTitle());
+        
+        return bookEntityForUpdate;
+    }
 }

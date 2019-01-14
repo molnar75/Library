@@ -31,9 +31,8 @@ public class AddressDaoImpl implements AddressDao {
     @Override
     public void updateAddress(AddressDto addressDto) throws PersistEcxeption, IsNullException {
         AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
-        AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
-
         ObjectValidator.entityIsNull(addressEntityForUpdate, addressDto.getId());
+        AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
 
         addressEntityForUpdate = updateNewEntity(addressEntityForUpdate, newAddressEntity);
 
@@ -43,7 +42,6 @@ public class AddressDaoImpl implements AddressDao {
     @Override
     public void deleteAddress(long addressId) throws PersistEcxeption, IsNullException {
         AddressEntity addressEntityForDelete = this.addressRepository.getAddressById(addressId);
-
         ObjectValidator.entityIsNull(addressEntityForDelete, addressId);
 
         this.addressRepository.deleteAddress(addressEntityForDelete);

@@ -4,10 +4,14 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import hu.simplesoft.dualis.library.data.dao.LibraryDao;
 import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
 import hu.simplesoft.dualis.library.data.mapper.LibraryMapper;
 import hu.simplesoft.dualis.library.data.repository.LibraryRepository;
+import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
+import hu.simplesoft.dualis.library.exception.IsNullException;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
@@ -15,6 +19,7 @@ import hu.simplesoft.dualis.library.service.dto.LibraryDto;
 @Transactional
 public class LibraryDaoImpl implements LibraryDao {
 
+    @Autowired
     private LibraryRepository libraryRepository;
 
     @Override
@@ -24,21 +29,20 @@ public class LibraryDaoImpl implements LibraryDao {
     }
 
     @Override
-    public void updateLibrary(LibraryDto libraryDto) throws PersistEcxeption {
+    public void updateLibrary(LibraryDto libraryDto) throws PersistEcxeption, IsNullException {
         LibraryEntity libraryEntityForUpdate = this.libraryRepository.getLibraryById(libraryDto.getId());
+        ObjectValidator.entityIsNull(libraryEntityForUpdate, libraryDto.getId());
         LibraryEntity newLibraryEntity = LibraryMapper.LibraryDtoToEntity(libraryDto);
 
-        if (libraryEntityForUpdate != null) {
-            libraryEntityForUpdate.setAddress(newLibraryEntity.getAddress());
-            libraryEntityForUpdate.setName(newLibraryEntity.getName());
-            
-            this.libraryRepository.updateLibrary(libraryEntityForUpdate);
-        }
+        libraryEntityForUpdate = updateNewEntity(libraryEntityForUpdate, newLibraryEntity);
+
+        this.libraryRepository.updateLibrary(libraryEntityForUpdate);
     }
 
     @Override
-    public void deleteLibrary(long libraryId) throws PersistEcxeption {
+    public void deleteLibrary(long libraryId) throws PersistEcxeption, IsNullException {
         LibraryEntity libraryEntityForDelete = this.libraryRepository.getLibraryById(libraryId);
+        ObjectValidator.entityIsNull(libraryEntityForDelete, libraryId);
         this.libraryRepository.deleteLibrary(libraryEntityForDelete);
     }
 
@@ -49,11 +53,18 @@ public class LibraryDaoImpl implements LibraryDao {
 
         return allLibrariesDto;
     }
-    
+
     @Override
     public LibraryDto getLibraryById(long libraryId) throws PersistEcxeption {
         LibraryEntity foundEntity = this.libraryRepository.getLibraryById(libraryId);
 
         return LibraryMapper.LibraryEntityToDto(foundEntity);
+    }
+
+    private LibraryEntity updateNewEntity(LibraryEntity libraryEntityForUpdate, LibraryEntity newLibraryEntity) {
+        libraryEntityForUpdate.setAddress(newLibraryEntity.getAddress());
+        libraryEntityForUpdate.setName(newLibraryEntity.getName());
+
+        return libraryEntityForUpdate;
     }
 }
