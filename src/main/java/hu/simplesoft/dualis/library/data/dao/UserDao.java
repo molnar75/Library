@@ -2,7 +2,6 @@ package hu.simplesoft.dualis.library.data.dao;
 
 import java.util.List;
 
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.UserDto;
 
@@ -15,5 +14,5 @@ public interface UserDao {
     
     UserDto getUserById(long userId) throws PersistEcxeption;
 
-    List<UserDto> getAllUsers() throws NoElementException;
+    List<UserDto> getAllUsers() throws PersistEcxeption;
 }

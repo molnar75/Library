@@ -12,7 +12,6 @@ import hu.simplesoft.dualis.library.data.entity.UserEntity;
 import hu.simplesoft.dualis.library.data.mapper.UserMapper;
 import hu.simplesoft.dualis.library.data.repository.UserRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.UserDto;
 
@@ -50,7 +49,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public List<UserDto> getAllUsers() throws NoElementException {
+    public List<UserDto> getAllUsers() throws PersistEcxeption {
         List<UserEntity> allUserEntities = this.userRepository.getAllUsers();
         List<UserDto> allUsersDto = UserMapper.getAllUsersToDto(allUserEntities);
 

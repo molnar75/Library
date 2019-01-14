@@ -12,7 +12,6 @@ import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
 import hu.simplesoft.dualis.library.data.mapper.LibraryMapper;
 import hu.simplesoft.dualis.library.data.repository.LibraryRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
 
@@ -50,7 +49,7 @@ public class LibraryDaoImpl implements LibraryDao {
     }
 
     @Override
-    public List<LibraryDto> getAllLibraries() throws NoElementException {
+    public List<LibraryDto> getAllLibraries() throws PersistEcxeption {
         List<LibraryEntity> allLibraryEntities = this.libraryRepository.getAllLibraries();
         List<LibraryDto> allLibrariesDto = LibraryMapper.getAllLibrariesToDto(allLibraryEntities);
 

@@ -12,7 +12,6 @@ import hu.simplesoft.dualis.library.data.entity.BorrowedBookEntity;
 import hu.simplesoft.dualis.library.data.mapper.BorrowedBookMapper;
 import hu.simplesoft.dualis.library.data.repository.BorrowedBookRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.BorrowedBookDto;
 
@@ -50,7 +49,7 @@ public class BorrowedBookDaoImpl implements BorrowedBookDao {
     }
 
     @Override
-    public List<BorrowedBookDto> getAllBorrowedBooks() throws NoElementException {
+    public List<BorrowedBookDto> getAllBorrowedBooks() throws PersistEcxeption {
         List<BorrowedBookEntity> allBorrowedBookEntities = this.borrowedBookRepository.getAllBorrowedBooks();
         List<BorrowedBookDto> allBorrowedBooksDto = BorrowedBookMapper.getAllBorrowedBooksToDto(allBorrowedBookEntities);
 

@@ -2,7 +2,6 @@ package hu.simplesoft.dualis.library.data.dao;
 
 import java.util.List;
 
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
@@ -16,5 +15,5 @@ public interface AddressDao {
     
     AddressDto getAddressById(long addressId) throws PersistEcxeption;
     
-    List<AddressDto> getAllAddresses() throws NoElementException;
+    List<AddressDto> getAllAddresses() throws PersistEcxeption;
 }

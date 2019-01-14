@@ -12,7 +12,6 @@ import hu.simplesoft.dualis.library.data.entity.BookEntity;
 import hu.simplesoft.dualis.library.data.mapper.BookMapper;
 import hu.simplesoft.dualis.library.data.repository.BookRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.BookDto;
 
@@ -50,7 +49,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public List<BookDto> getAllBooks() throws NoElementException {
+    public List<BookDto> getAllBooks() throws PersistEcxeption {
         List<BookEntity> allBookEntities = this.bookRepository.getAllBooks();
         List<BookDto> allBooksDto = BookMapper.getAllBooksToDto(allBookEntities);
 

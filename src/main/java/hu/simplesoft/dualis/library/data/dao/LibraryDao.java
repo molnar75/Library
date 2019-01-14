@@ -2,7 +2,6 @@ package hu.simplesoft.dualis.library.data.dao;
 
 import java.util.List;
 
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
 
@@ -15,5 +14,5 @@ public interface LibraryDao {
     
     LibraryDto getLibraryById(long libraryId) throws PersistEcxeption;
 
-    List<LibraryDto> getAllLibraries() throws NoElementException;
+    List<LibraryDto> getAllLibraries() throws PersistEcxeption;
 }

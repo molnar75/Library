@@ -11,7 +11,6 @@ import hu.simplesoft.dualis.library.data.entity.AddressEntity;
 import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
 import hu.simplesoft.dualis.library.data.repository.AddressRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
@@ -54,7 +53,7 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public List<AddressDto> getAllAddresses() throws NoElementException {
+    public List<AddressDto> getAllAddresses() throws PersistEcxeption {
         List<AddressEntity> allAddressEntities = this.addressRepository.getAllAddresses();
         List<AddressDto> allAddressDto = AddressMapper.getAllAdressesToDto(allAddressEntities);
 
