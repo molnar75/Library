@@ -5,31 +5,33 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import hu.simplesoft.dualis.library.data.dao.BookDao;
 import hu.simplesoft.dualis.library.data.entity.BookEntity;
 import hu.simplesoft.dualis.library.data.mapper.BookMapper;
 import hu.simplesoft.dualis.library.data.repository.BookRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.IsNullException;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.BookDto;
 
-@Transactional
+@Service
 public class BookDaoImpl implements BookDao {
     
     @Autowired
     private BookRepository bookRepository;
 
+    @Transactional
     @Override
     public void createBook(BookDto bookDto) throws PersistEcxeption {
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
         this.bookRepository.createBook(newBookEntity);
     }
 
+    @Transactional
     @Override
-    public void updateBook(BookDto bookDto) throws PersistEcxeption, IsNullException {
+    public void updateBook(BookDto bookDto) throws PersistEcxeption {
         BookEntity bookEntityForUpdate = this.bookRepository.getBookById(bookDto.getId());
         ObjectValidator.entityIsNull(bookEntityForUpdate, bookDto.getId());
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
@@ -39,8 +41,9 @@ public class BookDaoImpl implements BookDao {
         this.bookRepository.updateBook(bookEntityForUpdate);
     }
 
+    @Transactional
     @Override
-    public void deleteBook(long bookId) throws PersistEcxeption, IsNullException {
+    public void deleteBook(long bookId) throws PersistEcxeption {
         BookEntity bookEntityForDelete = this.bookRepository.getBookById(bookId);
         ObjectValidator.entityIsNull(bookEntityForDelete, bookId);
         this.bookRepository.deleteBook(bookEntityForDelete);

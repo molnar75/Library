@@ -5,31 +5,33 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import hu.simplesoft.dualis.library.data.dao.UserDao;
 import hu.simplesoft.dualis.library.data.entity.UserEntity;
 import hu.simplesoft.dualis.library.data.mapper.UserMapper;
 import hu.simplesoft.dualis.library.data.repository.UserRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.IsNullException;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.UserDto;
 
-@Transactional
+@Service
 public class UserDaoImpl implements UserDao {
 
     @Autowired
     private UserRepository userRepository;
 
+    @Transactional
     @Override
     public void createUser(UserDto userDto) throws PersistEcxeption {
         UserEntity newUserEntity = UserMapper.UserDtoToEntity(userDto);
         this.userRepository.createUser(newUserEntity);
     }
 
+    @Transactional
     @Override
-    public void updateUser(UserDto userDto) throws PersistEcxeption, IsNullException {
+    public void updateUser(UserDto userDto) throws PersistEcxeption {
         UserEntity userEntityForUpdate = this.userRepository.getUserById(userDto.getId());
         ObjectValidator.entityIsNull(userEntityForUpdate, userDto.getId());
         UserEntity newUserEntity = UserMapper.UserDtoToEntity(userDto);
@@ -39,8 +41,9 @@ public class UserDaoImpl implements UserDao {
         this.userRepository.updateUser(userEntityForUpdate);
     }
 
+    @Transactional
     @Override
-    public void deleteUser(long userId) throws PersistEcxeption, IsNullException {
+    public void deleteUser(long userId) throws PersistEcxeption {
         UserEntity userEntityForDelete = this.userRepository.getUserById(userId);
         ObjectValidator.entityIsNull(userEntityForDelete, userId);
         this.userRepository.deleteUser(userEntityForDelete);

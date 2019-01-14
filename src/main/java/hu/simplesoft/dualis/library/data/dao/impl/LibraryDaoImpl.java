@@ -5,31 +5,33 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import hu.simplesoft.dualis.library.data.dao.LibraryDao;
 import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
 import hu.simplesoft.dualis.library.data.mapper.LibraryMapper;
 import hu.simplesoft.dualis.library.data.repository.LibraryRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.IsNullException;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
 
-@Transactional
+@Service
 public class LibraryDaoImpl implements LibraryDao {
 
     @Autowired
     private LibraryRepository libraryRepository;
 
+    @Transactional
     @Override
     public void createLibrary(LibraryDto libraryDto) throws PersistEcxeption {
         LibraryEntity newLibraryEntity = LibraryMapper.LibraryDtoToEntity(libraryDto);
         this.libraryRepository.createLibrary(newLibraryEntity);
     }
 
+    @Transactional
     @Override
-    public void updateLibrary(LibraryDto libraryDto) throws PersistEcxeption, IsNullException {
+    public void updateLibrary(LibraryDto libraryDto) throws PersistEcxeption {
         LibraryEntity libraryEntityForUpdate = this.libraryRepository.getLibraryById(libraryDto.getId());
         ObjectValidator.entityIsNull(libraryEntityForUpdate, libraryDto.getId());
         LibraryEntity newLibraryEntity = LibraryMapper.LibraryDtoToEntity(libraryDto);
@@ -39,8 +41,9 @@ public class LibraryDaoImpl implements LibraryDao {
         this.libraryRepository.updateLibrary(libraryEntityForUpdate);
     }
 
+    @Transactional
     @Override
-    public void deleteLibrary(long libraryId) throws PersistEcxeption, IsNullException {
+    public void deleteLibrary(long libraryId) throws PersistEcxeption {
         LibraryEntity libraryEntityForDelete = this.libraryRepository.getLibraryById(libraryId);
         ObjectValidator.entityIsNull(libraryEntityForDelete, libraryId);
         this.libraryRepository.deleteLibrary(libraryEntityForDelete);

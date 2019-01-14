@@ -11,7 +11,6 @@ import hu.simplesoft.dualis.library.data.entity.AddressEntity;
 import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
 import hu.simplesoft.dualis.library.data.repository.AddressRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.IsNullException;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
@@ -29,7 +28,7 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public void updateAddress(AddressDto addressDto) throws PersistEcxeption, IsNullException {
+    public void updateAddress(AddressDto addressDto) throws PersistEcxeption {
         AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
         ObjectValidator.entityIsNull(addressEntityForUpdate, addressDto.getId());
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
@@ -40,7 +39,7 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public void deleteAddress(long addressId) throws PersistEcxeption, IsNullException {
+    public void deleteAddress(long addressId) throws PersistEcxeption {
         AddressEntity addressEntityForDelete = this.addressRepository.getAddressById(addressId);
         ObjectValidator.entityIsNull(addressEntityForDelete, addressId);
 
