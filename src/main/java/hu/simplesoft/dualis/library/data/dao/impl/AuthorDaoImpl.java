@@ -12,7 +12,6 @@ import hu.simplesoft.dualis.library.data.entity.AuthorEntity;
 import hu.simplesoft.dualis.library.data.mapper.AuthorMapper;
 import hu.simplesoft.dualis.library.data.repository.AuthorRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.AuthorDto;
 
@@ -57,7 +56,7 @@ class AuthorDaoImpl implements AuthorDao {
     }
 
     @Override
-    public List<AuthorDto> getAllAuthors() throws NoElementException {
+    public List<AuthorDto> getAllAuthors() throws PersistEcxeption {
         List<AuthorEntity> allAuthorEntities = this.authorRepository.getAllAuthors();
         List<AuthorDto> allAuthorsDto = AuthorMapper.getAllAuthorsToDto(allAuthorEntities);
 
