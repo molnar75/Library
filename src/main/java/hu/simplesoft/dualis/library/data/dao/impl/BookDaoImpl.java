@@ -12,7 +12,7 @@ import hu.simplesoft.dualis.library.data.entity.BookEntity;
 import hu.simplesoft.dualis.library.data.mapper.BookMapper;
 import hu.simplesoft.dualis.library.data.repository.BookRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.PersistEcxeption;
+import hu.simplesoft.dualis.library.exception.PersistException;
 import hu.simplesoft.dualis.library.service.dto.BookDto;
 
 @Service
@@ -23,14 +23,14 @@ public class BookDaoImpl implements BookDao {
 
     @Transactional
     @Override
-    public void createBook(BookDto bookDto) throws PersistEcxeption {
+    public void createBook(BookDto bookDto) throws PersistException {
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
         this.bookRepository.createBook(newBookEntity);
     }
 
     @Transactional
     @Override
-    public void updateBook(BookDto bookDto) throws PersistEcxeption {
+    public void updateBook(BookDto bookDto) throws PersistException {
         BookEntity bookEntityForUpdate = this.bookRepository.getBookById(bookDto.getId());
         ObjectValidator.entityIsNull(bookEntityForUpdate, bookDto.getId());
         BookEntity newBookEntity = BookMapper.BookDtoToEntity(bookDto);
@@ -42,14 +42,14 @@ public class BookDaoImpl implements BookDao {
 
     @Transactional
     @Override
-    public void deleteBook(long bookId) throws PersistEcxeption {
+    public void deleteBook(long bookId) throws PersistException {
         BookEntity bookEntityForDelete = this.bookRepository.getBookById(bookId);
         ObjectValidator.entityIsNull(bookEntityForDelete, bookId);
         this.bookRepository.deleteBook(bookEntityForDelete);
     }
 
     @Override
-    public List<BookDto> getAllBooks() throws PersistEcxeption {
+    public List<BookDto> getAllBooks() throws PersistException {
         List<BookEntity> allBookEntities = this.bookRepository.getAllBooks();
         List<BookDto> allBooksDto = BookMapper.getAllBooksToDto(allBookEntities);
 
@@ -57,7 +57,7 @@ public class BookDaoImpl implements BookDao {
     }
 
     @Override
-    public BookDto getBookById(long bookId) throws PersistEcxeption {
+    public BookDto getBookById(long bookId) throws PersistException {
         BookEntity foundEntity = this.bookRepository.getBookById(bookId);
 
         return BookMapper.BookEntityToDto(foundEntity);

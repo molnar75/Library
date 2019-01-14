@@ -1,6 +1,6 @@
 package hu.simplesoft.dualis.library.exception;
 
-public class IsNullException extends PersistEcxeption {
+public class IsNullException extends PersistException {
 
     private static final long serialVersionUID = 1L;
 

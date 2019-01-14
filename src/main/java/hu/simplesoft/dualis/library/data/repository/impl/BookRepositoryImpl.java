@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import hu.simplesoft.dualis.library.data.entity.BookEntity;
 import hu.simplesoft.dualis.library.data.repository.BookRepository;
 import hu.simplesoft.dualis.library.exception.NoElementException;
-import hu.simplesoft.dualis.library.exception.PersistEcxeption;
+import hu.simplesoft.dualis.library.exception.PersistException;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository {
@@ -20,40 +20,40 @@ public class BookRepositoryImpl implements BookRepository {
     private EntityManager entityManager;
 
     @Override
-    public void createBook(BookEntity newBookEntity) throws PersistEcxeption {
+    public void createBook(BookEntity newBookEntity) throws PersistException {
         try {
             this.entityManager.persist(newBookEntity);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't create the book", e);
+            throw new PersistException("Couldn't create the book", e);
         }
     }
 
     @Override
-    public void updateBook(BookEntity bookEntityForUpdate) throws PersistEcxeption {
+    public void updateBook(BookEntity bookEntityForUpdate) throws PersistException {
         try {
             this.entityManager.merge(bookEntityForUpdate);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't update the book!", e);
+            throw new PersistException("Couldn't update the book!", e);
         }
     }
 
     @Override
-    public void deleteBook(BookEntity bookEntityForDelete) throws PersistEcxeption {
+    public void deleteBook(BookEntity bookEntityForDelete) throws PersistException {
         try {
             this.entityManager.remove(bookEntityForDelete);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't delete the book!", e);
+            throw new PersistException("Couldn't delete the book!", e);
         }
     }
 
     @Override
-    public BookEntity getBookById(long bookId) throws PersistEcxeption {
+    public BookEntity getBookById(long bookId) throws PersistException {
         BookEntity foundEntity;
 
         try {
             foundEntity = this.entityManager.find(BookEntity.class, bookId);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't find the book!", e);
+            throw new PersistException("Couldn't find the book!", e);
         }
 
         return foundEntity;

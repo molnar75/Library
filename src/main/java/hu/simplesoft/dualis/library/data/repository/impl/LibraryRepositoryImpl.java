@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import hu.simplesoft.dualis.library.data.entity.LibraryEntity;
 import hu.simplesoft.dualis.library.data.repository.LibraryRepository;
 import hu.simplesoft.dualis.library.exception.NoElementException;
-import hu.simplesoft.dualis.library.exception.PersistEcxeption;
+import hu.simplesoft.dualis.library.exception.PersistException;
 
 @Repository
 public class LibraryRepositoryImpl implements LibraryRepository {
@@ -20,40 +20,40 @@ public class LibraryRepositoryImpl implements LibraryRepository {
     private EntityManager entityManager;
 
     @Override
-    public void createLibrary(LibraryEntity newLibraryEntity) throws PersistEcxeption {
+    public void createLibrary(LibraryEntity newLibraryEntity) throws PersistException {
         try {
             this.entityManager.persist(newLibraryEntity);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't create the library", e);
+            throw new PersistException("Couldn't create the library", e);
         }
     }
 
     @Override
-    public void updateLibrary(LibraryEntity libraryEntityForUpdate) throws PersistEcxeption {
+    public void updateLibrary(LibraryEntity libraryEntityForUpdate) throws PersistException {
         try {
             this.entityManager.merge(libraryEntityForUpdate);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't update the library!", e);
+            throw new PersistException("Couldn't update the library!", e);
         }
     }
 
     @Override
-    public void deleteLibrary(LibraryEntity libraryEntityForDelete) throws PersistEcxeption {
+    public void deleteLibrary(LibraryEntity libraryEntityForDelete) throws PersistException {
         try {
             this.entityManager.remove(libraryEntityForDelete);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't delete the library!", e);
+            throw new PersistException("Couldn't delete the library!", e);
         }
     }
 
     @Override
-    public LibraryEntity getLibraryById(long libraryId) throws PersistEcxeption {
+    public LibraryEntity getLibraryById(long libraryId) throws PersistException {
         LibraryEntity foundEntity;
 
         try {
             foundEntity = this.entityManager.find(LibraryEntity.class, libraryId);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't find the library!", e);
+            throw new PersistException("Couldn't find the library!", e);
         }
         return foundEntity;
     }

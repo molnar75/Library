@@ -1,15 +1,15 @@
 package hu.simplesoft.dualis.library.exception;
 
 
-public class PersistEcxeption extends Exception {
+public class PersistException extends Exception {
 
     private static final long serialVersionUID = 1L;
     
-    public PersistEcxeption (String message) {
+    public PersistException (String message) {
         super (message);
     }
 
-    public PersistEcxeption (String message, Throwable e) {
+    public PersistException (String message, Throwable e) {
         super (message,e);
     }
 }

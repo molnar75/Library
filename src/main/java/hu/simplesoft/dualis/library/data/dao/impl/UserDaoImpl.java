@@ -12,7 +12,7 @@ import hu.simplesoft.dualis.library.data.entity.UserEntity;
 import hu.simplesoft.dualis.library.data.mapper.UserMapper;
 import hu.simplesoft.dualis.library.data.repository.UserRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.PersistEcxeption;
+import hu.simplesoft.dualis.library.exception.PersistException;
 import hu.simplesoft.dualis.library.service.dto.UserDto;
 
 @Service
@@ -23,14 +23,14 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public void createUser(UserDto userDto) throws PersistEcxeption {
+    public void createUser(UserDto userDto) throws PersistException {
         UserEntity newUserEntity = UserMapper.UserDtoToEntity(userDto);
         this.userRepository.createUser(newUserEntity);
     }
 
     @Transactional
     @Override
-    public void updateUser(UserDto userDto) throws PersistEcxeption {
+    public void updateUser(UserDto userDto) throws PersistException {
         UserEntity userEntityForUpdate = this.userRepository.getUserById(userDto.getId());
         ObjectValidator.entityIsNull(userEntityForUpdate, userDto.getId());
         UserEntity newUserEntity = UserMapper.UserDtoToEntity(userDto);
@@ -42,14 +42,14 @@ public class UserDaoImpl implements UserDao {
 
     @Transactional
     @Override
-    public void deleteUser(long userId) throws PersistEcxeption {
+    public void deleteUser(long userId) throws PersistException {
         UserEntity userEntityForDelete = this.userRepository.getUserById(userId);
         ObjectValidator.entityIsNull(userEntityForDelete, userId);
         this.userRepository.deleteUser(userEntityForDelete);
     }
 
     @Override
-    public List<UserDto> getAllUsers() throws PersistEcxeption {
+    public List<UserDto> getAllUsers() throws PersistException {
         List<UserEntity> allUserEntities = this.userRepository.getAllUsers();
         List<UserDto> allUsersDto = UserMapper.getAllUsersToDto(allUserEntities);
 
@@ -57,7 +57,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public UserDto getUserById(long userId) throws PersistEcxeption {
+    public UserDto getUserById(long userId) throws PersistException {
         UserEntity foundEntity = this.userRepository.getUserById(userId);
 
         return UserMapper.UserEntityToDto(foundEntity);

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import hu.simplesoft.dualis.library.data.entity.AuthorEntity;
 import hu.simplesoft.dualis.library.data.repository.AuthorRepository;
 import hu.simplesoft.dualis.library.exception.NoElementException;
-import hu.simplesoft.dualis.library.exception.PersistEcxeption;
+import hu.simplesoft.dualis.library.exception.PersistException;
 
 @Repository
 public class AuthorRepositoryImpl implements AuthorRepository {
@@ -20,40 +20,40 @@ public class AuthorRepositoryImpl implements AuthorRepository {
     private EntityManager entityManager;
 
     @Override
-    public void createAuthor(AuthorEntity newAuthorEntity) throws PersistEcxeption {
+    public void createAuthor(AuthorEntity newAuthorEntity) throws PersistException {
         try {
             this.entityManager.persist(newAuthorEntity);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't create the author", e);
+            throw new PersistException("Couldn't create the author", e);
         }
     }
 
     @Override
-    public void updateAuthor(AuthorEntity authorEntityForUpdate) throws PersistEcxeption {
+    public void updateAuthor(AuthorEntity authorEntityForUpdate) throws PersistException {
         try {
             this.entityManager.merge(authorEntityForUpdate);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't update the author!", e);
+            throw new PersistException("Couldn't update the author!", e);
         }
     }
 
     @Override
-    public void deleteAuthor(AuthorEntity authorEntityForDelete) throws PersistEcxeption {
+    public void deleteAuthor(AuthorEntity authorEntityForDelete) throws PersistException {
         try {
             this.entityManager.remove(authorEntityForDelete);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't delete the author!", e);
+            throw new PersistException("Couldn't delete the author!", e);
         }
     }
 
     @Override
-    public AuthorEntity getAuthorById(long authorId) throws PersistEcxeption {
+    public AuthorEntity getAuthorById(long authorId) throws PersistException {
         AuthorEntity foundEntity;
         
         try {
             foundEntity = this.entityManager.find(AuthorEntity.class, authorId);
         } catch (RuntimeException e) {
-            throw new PersistEcxeption("Couldn't find the author!", e);
+            throw new PersistException("Couldn't find the author!", e);
         }
 
         return foundEntity;

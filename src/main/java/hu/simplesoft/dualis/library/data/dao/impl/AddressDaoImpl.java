@@ -11,7 +11,7 @@ import hu.simplesoft.dualis.library.data.entity.AddressEntity;
 import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
 import hu.simplesoft.dualis.library.data.repository.AddressRepository;
 import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
-import hu.simplesoft.dualis.library.exception.PersistEcxeption;
+import hu.simplesoft.dualis.library.exception.PersistException;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
 @Transactional
@@ -21,13 +21,13 @@ public class AddressDaoImpl implements AddressDao {
     private AddressRepository addressRepository;
 
     @Override
-    public void createAddress(AddressDto addressDto) throws PersistEcxeption {
+    public void createAddress(AddressDto addressDto) throws PersistException {
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
         this.addressRepository.createAddress(newAddressEntity);
     }
 
     @Override
-    public void updateAddress(AddressDto addressDto) throws PersistEcxeption {
+    public void updateAddress(AddressDto addressDto) throws PersistException {
         AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
         ObjectValidator.entityIsNull(addressEntityForUpdate, addressDto.getId());
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
@@ -38,7 +38,7 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public void deleteAddress(long addressId) throws PersistEcxeption {
+    public void deleteAddress(long addressId) throws PersistException {
         AddressEntity addressEntityForDelete = this.addressRepository.getAddressById(addressId);
         ObjectValidator.entityIsNull(addressEntityForDelete, addressId);
 
@@ -46,14 +46,14 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public AddressDto getAddressById(long addressId) throws PersistEcxeption {
+    public AddressDto getAddressById(long addressId) throws PersistException {
         AddressEntity foundEntity = this.addressRepository.getAddressById(addressId);
 
         return AddressMapper.AddressEntityToDto(foundEntity);
     }
 
     @Override
-    public List<AddressDto> getAllAddresses() throws PersistEcxeption {
+    public List<AddressDto> getAllAddresses() throws PersistException {
         List<AddressEntity> allAddressEntities = this.addressRepository.getAllAddresses();
         List<AddressDto> allAddressDto = AddressMapper.getAllAdressesToDto(allAddressEntities);
 
