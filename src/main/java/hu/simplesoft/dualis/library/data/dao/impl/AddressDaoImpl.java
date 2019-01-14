@@ -8,6 +8,8 @@ import hu.simplesoft.dualis.library.data.dao.AddressDao;
 import hu.simplesoft.dualis.library.data.entity.AddressEntity;
 import hu.simplesoft.dualis.library.data.mapper.AddressMapper;
 import hu.simplesoft.dualis.library.data.repository.AddressRepository;
+import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
+import hu.simplesoft.dualis.library.exception.IsNullException;
 import hu.simplesoft.dualis.library.exception.NoElementException;
 import hu.simplesoft.dualis.library.exception.PersistEcxeption;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
@@ -16,6 +18,7 @@ import hu.simplesoft.dualis.library.service.dto.AddressDto;
 public class AddressDaoImpl implements AddressDao {
 
     private AddressRepository addressRepository;
+    private ObjectValidator objectValidator;
 
     @Override
     public void createAddress(AddressDto addressDto) throws PersistEcxeption {
@@ -24,20 +27,23 @@ public class AddressDaoImpl implements AddressDao {
     }
 
     @Override
-    public void updateAddress(AddressDto addressDto) throws PersistEcxeption {
+    public void updateAddress(AddressDto addressDto) throws PersistEcxeption, IsNullException {
         AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
 
-        if (entityValidator(addressEntityForUpdate)) {
-            addressEntityForUpdate = setNewEntity(addressEntityForUpdate, newAddressEntity);
-            
-            this.addressRepository.updateAddress(addressEntityForUpdate);
-        }
+        objectValidator.entityIsNull(addressEntityForUpdate, addressDto.getId());
+
+        addressEntityForUpdate = updateNewEntity(addressEntityForUpdate, newAddressEntity);
+
+        this.addressRepository.updateAddress(addressEntityForUpdate);
     }
 
     @Override
-    public void deleteAddress(long addressId) throws PersistEcxeption {
+    public void deleteAddress(long addressId) throws PersistEcxeption, IsNullException {
         AddressEntity addressEntityForDelete = this.addressRepository.getAddressById(addressId);
+
+        objectValidator.entityIsNull(addressEntityForDelete, addressId);
+
         this.addressRepository.deleteAddress(addressEntityForDelete);
     }
 
@@ -56,22 +62,13 @@ public class AddressDaoImpl implements AddressDao {
         return allAddressDto;
     }
 
-    @Override
-    public AddressEntity setNewEntity(AddressEntity addressEntityForUpdate, AddressEntity newAddressEntity) {
+    private AddressEntity updateNewEntity(AddressEntity addressEntityForUpdate, AddressEntity newAddressEntity) {
         addressEntityForUpdate.setCountry(newAddressEntity.getCountry());
         addressEntityForUpdate.setHouseNumber(newAddressEntity.getHouseNumber());
         addressEntityForUpdate.setStreet(newAddressEntity.getStreet());
         addressEntityForUpdate.setZipCode(newAddressEntity.getZipCode());
-        
-        return addressEntityForUpdate;
-    }
 
-    @Override
-    public boolean entityValidator(AddressEntity addressEntityForUpdate) {
-        if(addressEntityForUpdate != null) {
-            return true;
-        }
-        return false;
+        return addressEntityForUpdate;
     }
 
 }
