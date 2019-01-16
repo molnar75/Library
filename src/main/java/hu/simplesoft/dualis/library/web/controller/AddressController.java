@@ -14,11 +14,12 @@ import hu.simplesoft.dualis.library.service.component.AddressService;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 import hu.simplesoft.dualis.library.service.exception.ServiceException;
 
-@RequestMapping("/")
+
+@RequestMapping("/address")
 @RestController
 public class AddressController {
 
-    AddressController(){
+    public AddressController(){
     }
     
     @Autowired
