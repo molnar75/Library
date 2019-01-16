@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import hu.simplesoft.dualis.library.service.component.AddressService;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 import hu.simplesoft.dualis.library.service.exception.ServiceException;
-
+import hu.simplesoft.dualis.library.web.mapper.AddressRequestMapper;
+import hu.simplesoft.dualis.library.web.request.address.CreateAddressRequest;
+import hu.simplesoft.dualis.library.web.request.address.UpdateAddressRequest;
 
 @RequestMapping("/address")
 @RestController
@@ -26,12 +28,14 @@ public class AddressController {
     private AddressService addressService;
     
     @PostMapping("/createAddress")
-    public void createAddress(@RequestBody AddressDto addressDto) throws ServiceException {
+    public void createAddress(@RequestBody CreateAddressRequest createAddressRequest) throws ServiceException {
+        AddressDto addressDto = AddressRequestMapper.CreateAddressRequestToAddressDto(createAddressRequest);
         this.addressService.createAddress(addressDto);
     }
     
     @PostMapping("/updateAddress")
-    public void updateAddress(@RequestBody AddressDto addressDto) throws ServiceException {
+    public void updateAddress(@RequestBody UpdateAddressRequest updateAddressRequest) throws ServiceException {
+        AddressDto addressDto = AddressRequestMapper.UpdateAddressRequestToAddressDto(updateAddressRequest);    
         this.addressService.updateAddress(addressDto);
     }
     

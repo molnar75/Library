@@ -3,6 +3,9 @@ package hu.simplesoft.dualis.library.web.request.address;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.validation.annotation.Validated;
+
+@Validated
 public class CreateAddressRequest {
 
     @NotNull
@@ -51,5 +54,4 @@ public class CreateAddressRequest {
     public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
     }
-    
 }
