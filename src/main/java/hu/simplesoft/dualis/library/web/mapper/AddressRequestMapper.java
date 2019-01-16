@@ -20,6 +20,7 @@ public class AddressRequestMapper {
     public static AddressDto UpdateAddressRequestToAddressDto(UpdateAddressRequest updateAddressRequest) {
         AddressDto addressDto = new AddressDto();
         
+        addressDto.setId(updateAddressRequest.getId());
         addressDto.setCountry(updateAddressRequest.getCountry());
         addressDto.setHouseNumber(updateAddressRequest.getHouseNumber());
         addressDto.setStreet(updateAddressRequest.getStreet());

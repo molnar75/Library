@@ -9,6 +9,9 @@ import org.springframework.validation.annotation.Validated;
 public class UpdateAddressRequest {
     
     @NotNull
+    private long id;
+    
+    @NotNull
     private int ZipCode;
     
     @NotBlank
@@ -53,5 +56,13 @@ public class UpdateAddressRequest {
   
     public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
+    }
+    
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }  
 }
