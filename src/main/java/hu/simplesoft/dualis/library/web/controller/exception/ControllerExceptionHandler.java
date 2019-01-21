@@ -13,15 +13,24 @@ public class ControllerExceptionHandler {
     private static final Logger LOGGER = LogManager.getLogger(ControllerExceptionHandler.class);
     
     @ExceptionHandler(ServiceException.class)
-    public void handleServiceException(ServiceException e) {
+    public Object handleServiceException(ServiceException e) {
+        String StatusResponse = "ERROR";        
         LOGGER.error(e);
+        
+        return StatusResponse;
     }
     @ExceptionHandler(RuntimeException.class)
-    public void handleRuntimeException(RuntimeException e) {
+    public Object handleRuntimeException(RuntimeException e) {
+        String StatusResponse = "ERROR";
         LOGGER.error(e);
+        
+        return StatusResponse;
     }
     @ExceptionHandler(Exception.class)
-    public void handleException(Exception e) {
+    public Object handleException(Exception e) {
+        String StatusResponse = "ERROR";
         LOGGER.error(e);
+        
+        return StatusResponse;
     }
 }
