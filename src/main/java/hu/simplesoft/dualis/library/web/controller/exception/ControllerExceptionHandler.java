@@ -11,24 +11,22 @@ import hu.simplesoft.dualis.library.service.exception.ServiceException;
 public class ControllerExceptionHandler {
 
     private static final Logger LOGGER = LogManager.getLogger(ControllerExceptionHandler.class);
+    ControllerExceptionObject StatusResponse = new ControllerExceptionObject("ERROR");
     
     @ExceptionHandler(ServiceException.class)
-    public Object handleServiceException(ServiceException e) {
-        String StatusResponse = "ERROR";        
+    public Object handleServiceException(ServiceException e) {    
         LOGGER.error(e);
         
         return StatusResponse;
     }
     @ExceptionHandler(RuntimeException.class)
     public Object handleRuntimeException(RuntimeException e) {
-        String StatusResponse = "ERROR";
         LOGGER.error(e);
         
         return StatusResponse;
     }
     @ExceptionHandler(Exception.class)
     public Object handleException(Exception e) {
-        String StatusResponse = "ERROR";
         LOGGER.error(e);
         
         return StatusResponse;
