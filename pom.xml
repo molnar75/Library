@@ -147,7 +147,7 @@
             </plugin>
         </plugins>
 
-        <finalName>SBD</finalName>
+        <finalName>Library</finalName>
     </build>
 	
 </project>
