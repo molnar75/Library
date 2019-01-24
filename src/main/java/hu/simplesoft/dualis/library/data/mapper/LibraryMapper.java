@@ -22,7 +22,7 @@ public class LibraryMapper {
         LibraryDto libraryDto = new LibraryDto();
         
         libraryDto.setId(libraryEntity.getId());
-        libraryDto.setName(libraryDto.getName());
+        libraryDto.setName(libraryEntity.getName());
         libraryDto.setAddress(AddressMapper.AddressEntityToDto(libraryEntity.getAddress()));
         
         return libraryDto;

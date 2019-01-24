@@ -64,7 +64,7 @@ public class BookRepositoryImpl implements BookRepository {
         TypedQuery<BookEntity> queryForAllBooks;
         List<BookEntity> allBookEntities;
         try {
-            queryForAllBooks = this.entityManager.createQuery("SELECT  h FROM books h", BookEntity.class);
+            queryForAllBooks = this.entityManager.createQuery("SELECT  a FROM Book a", BookEntity.class);
             allBookEntities = queryForAllBooks.getResultList();
         } catch (RuntimeException e) {
             throw new NoElementException("Couldn't get all books!", e);

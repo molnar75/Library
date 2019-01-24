@@ -17,12 +17,13 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableTransactionManagement
 @EnableWebMvc
 @ComponentScan ({"hu.simplesoft.dualis.library"})
-public class PersistenceJPAConfig {
+public class PersistenceJPAConfig implements WebMvcConfigurer {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -42,7 +43,7 @@ public class PersistenceJPAConfig {
     public DataSource dataSource(){
        DriverManagerDataSource dataSource = new DriverManagerDataSource();
        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-       dataSource.setUrl("jdbc:mysql://localhost:3306/library?serverTimezone=Europe/Budapest\"");
+       dataSource.setUrl("jdbc:mysql://localhost:3306/library?serverTimezone=Europe/Budapest");
        dataSource.setUsername( "username" );
        dataSource.setPassword( "password" );
        return dataSource;

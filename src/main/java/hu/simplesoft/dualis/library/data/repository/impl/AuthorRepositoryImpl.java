@@ -64,7 +64,7 @@ public class AuthorRepositoryImpl implements AuthorRepository {
         TypedQuery<AuthorEntity> queryForAllAuthors;
         List<AuthorEntity> allAuthorEntities;
         try {
-            queryForAllAuthors = this.entityManager.createQuery("SELECT  h FROM authors h", AuthorEntity.class);
+            queryForAllAuthors = this.entityManager.createQuery("SELECT  a FROM Authors a", AuthorEntity.class);
             allAuthorEntities = queryForAllAuthors.getResultList();
         } catch (RuntimeException e) {
             throw new NoElementException("Couldn't get all addresses!", e);

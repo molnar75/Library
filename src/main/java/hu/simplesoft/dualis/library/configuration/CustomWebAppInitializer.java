@@ -11,7 +11,7 @@ public class CustomWebAppInitializer extends AbstractAnnotationConfigDispatcherS
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-     return new Class<?>[]{PersistenceJPAConfig.class};
+     return null;
     }
 
     @Override

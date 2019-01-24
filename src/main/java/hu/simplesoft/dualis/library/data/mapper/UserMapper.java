@@ -32,6 +32,7 @@ public class UserMapper {
         userDto.setUserName(userEntity.getUserName());
         userDto.setPassword(userEntity.getPassword());
         userDto.setEmail(userEntity.getEmail());
+        userDto.setName(userEntity.getName());
         userDto.setPhoneNumber(userEntity.getPhoneNumber());
         userDto.setRole(RoleMapper.RoleEntityToDto(userEntity.getRole()));
         userDto.setAddress(AddressMapper.AddressEntityToDto(userEntity.getAddress()));

@@ -3,6 +3,7 @@ package hu.simplesoft.dualis.library.web.request.book;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import hu.simplesoft.dualis.library.service.dto.AuthorDto;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
@@ -12,13 +13,13 @@ public class CreateBookRequest {
     @NotBlank
     private String title;
     
-    @NotBlank
+    @NotNull
     private Date publishDate;
     
-    @NotBlank
+    @NotNull
     private AuthorDto author;
     
-    @NotBlank
+    @NotNull
     private LibraryDto library;
 
     public CreateBookRequest() {

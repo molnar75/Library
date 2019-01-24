@@ -2,7 +2,6 @@ package hu.simplesoft.dualis.library.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,15 +40,15 @@ public class UserEntity {
         @Column(name = "Phone_number")
         private String phoneNumber;
         
-        @OneToOne(fetch = FetchType.EAGER)
+        @OneToOne
         @JoinColumn(name = "Role_id")
         private RoleEntity role;
         
-        @OneToOne(fetch = FetchType.LAZY)
+        @OneToOne
         @JoinColumn(name = "Address_id")
         private AddressEntity address;
         
-        @ManyToOne(fetch = FetchType.EAGER)
+        @ManyToOne
         @JoinColumn(name = "Library_id")
         private LibraryEntity library;
                 

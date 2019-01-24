@@ -63,7 +63,7 @@ public class LibraryRepositoryImpl implements LibraryRepository {
         TypedQuery<LibraryEntity> queryForAllLibraries;
         List<LibraryEntity> allLibraryEntities;
         try {
-            queryForAllLibraries = this.entityManager.createQuery("SELECT  h FROM libraries h", LibraryEntity.class);
+            queryForAllLibraries = this.entityManager.createQuery("SELECT  a FROM Libraries a", LibraryEntity.class);
             allLibraryEntities = queryForAllLibraries.getResultList();
         } catch (RuntimeException e) {
             throw new NoElementException("Couldn't get all libraries!", e);

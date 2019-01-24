@@ -111,15 +111,6 @@
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.13</version>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- IntelliJ -->
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations-java5</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
         </dependency>
 
 

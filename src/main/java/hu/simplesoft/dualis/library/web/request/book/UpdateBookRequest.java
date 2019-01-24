@@ -16,13 +16,13 @@ public class UpdateBookRequest {
     @NotBlank
     private String title;
     
-    @NotBlank
+    @NotNull
     private Date publishDate;
     
-    @NotBlank
+    @NotNull
     private AuthorDto author;
     
-    @NotBlank
+    @NotNull
     private LibraryDto library;
 
     public UpdateBookRequest() {

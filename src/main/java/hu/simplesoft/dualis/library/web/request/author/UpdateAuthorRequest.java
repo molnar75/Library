@@ -16,7 +16,7 @@ public class UpdateAuthorRequest {
     @NotBlank
     private String name;
     
-    @NotBlank
+    @NotNull
     private Date birthDate;
     
     public UpdateAuthorRequest() {

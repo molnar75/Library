@@ -1,6 +1,7 @@
 package hu.simplesoft.dualis.library.web.request.user;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
@@ -23,13 +24,13 @@ public class CreateUserRequest {
     @NotBlank
     private String phoneNumber;
 
-    @NotBlank
+    @NotNull
     private RoleDto role;
 
-    @NotBlank
+    @NotNull
     private AddressDto address;
 
-    @NotBlank
+    @NotNull
     private LibraryDto library;
 
     public String getUserName() {

@@ -3,6 +3,8 @@ package hu.simplesoft.dualis.library.web.controller;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +18,10 @@ import hu.simplesoft.dualis.library.service.component.AddressService;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 import hu.simplesoft.dualis.library.service.exception.ServiceException;
 import hu.simplesoft.dualis.library.web.mapper.AddressRequestMapper;
-import hu.simplesoft.dualis.library.web.request.IdRequest;
 import hu.simplesoft.dualis.library.web.request.address.CreateAddressRequest;
 import hu.simplesoft.dualis.library.web.request.address.UpdateAddressRequest;
 
-@RequestMapping("/address")
+@RequestMapping("address")
 @RestController
 public class AddressController {
 
@@ -30,30 +31,32 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
     
-    @PostMapping("/createAddress")
+    @PostMapping("createAddress")
     public void createAddress(@Valid @RequestBody CreateAddressRequest createAddressRequest) throws ServiceException {
         AddressDto addressDto = AddressRequestMapper.CreateAddressRequestToAddressDto(createAddressRequest);
         this.addressService.createAddress(addressDto);
     }
     
-    @PostMapping("/updateAddress")
+    @PostMapping("updateAddress")
     public void updateAddress(@Valid @RequestBody UpdateAddressRequest updateAddressRequest) throws ServiceException {
         AddressDto addressDto = AddressRequestMapper.UpdateAddressRequestToAddressDto(updateAddressRequest);    
         this.addressService.updateAddress(addressDto);
     }
     
-    @PostMapping("/deleteAddress/{id}")
-    public void deleteAddress(@Valid @PathVariable("id") IdRequest idRequest) throws ServiceException {
-        this.addressService.deleteAddress(idRequest.getId());
+    @PostMapping("deleteAddress/{id}")
+    public void deleteAddress(@NotNull
+        @Min(value = 1) @PathVariable("id") long idRequest) throws ServiceException {
+        this.addressService.deleteAddress(idRequest);
     }
     
-    @GetMapping("/getAddressById/{id}")
-    public AddressDto getAddressById(@Valid @PathVariable("id") IdRequest idRequest) throws ServiceException {
-        return this.addressService.getAddressById(idRequest.getId());
+    @GetMapping("getAddressById/{id}")
+    public AddressDto getAddressById(@NotNull
+        @Min(value = 1) @PathVariable("id") long idRequest) throws ServiceException {
+        return this.addressService.getAddressById(idRequest);
     }
     
-    @GetMapping("/getAllAddresses")
-    public List<AddressDto> getAllAddresses()  {
-        return this.getAllAddresses();
+    @GetMapping("getAllAddresses")
+    public List<AddressDto> getAllAddresses() throws ServiceException  {
+        return this.addressService.getAllAddresses();
     }
 }

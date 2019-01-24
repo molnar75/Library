@@ -11,6 +11,30 @@ public class UpdateUserRequest {
 
     @NotNull
     private long id;
+    
+    @NotBlank
+    private String userName;
+
+    @NotBlank
+    private String password;
+
+    @NotBlank
+    private String email;
+
+    @NotBlank
+    private String name;
+
+    @NotBlank
+    private String phoneNumber;
+
+    @NotNull
+    private RoleDto role;
+
+    @NotNull
+    private AddressDto address;
+
+    @NotNull
+    private LibraryDto library;
 
     public long getId() {
         return id;
@@ -83,28 +107,4 @@ public class UpdateUserRequest {
     public void setLibrary(LibraryDto library) {
         this.library = library;
     }
-
-    @NotBlank
-    private String userName;
-
-    @NotBlank
-    private String password;
-
-    @NotBlank
-    private String email;
-
-    @NotBlank
-    private String name;
-
-    @NotBlank
-    private String phoneNumber;
-
-    @NotBlank
-    private RoleDto role;
-
-    @NotBlank
-    private AddressDto address;
-
-    @NotBlank
-    private LibraryDto library;
 }

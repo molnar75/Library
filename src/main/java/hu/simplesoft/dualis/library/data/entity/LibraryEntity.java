@@ -2,7 +2,6 @@ package hu.simplesoft.dualis.library.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +24,7 @@ public class LibraryEntity {
     @Column(name = "Name")
     private String name;
     
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     @JoinColumn(name = "Address_id")
     private AddressEntity address;
 
@@ -33,34 +32,24 @@ public class LibraryEntity {
     public long getId() {
         return id;
     }
-
-    
+  
     public void setId(long id) {
         this.id = id;
     }
-
-    
+  
     public String getName() {
         return name;
     }
-
-    
+  
     public void setName(String name) {
         this.name = name;
     }
-
-
-    
+   
     public AddressEntity getAddress() {
         return address;
     }
-
-
     
     public void setAddress(AddressEntity address) {
         this.address = address;
-    }
-    
-    
-    
+    }   
 }

@@ -63,7 +63,7 @@ public class UserRepositoryImpl implements UserRepository {
         TypedQuery<UserEntity> queryForAllUsers;
         List<UserEntity> allUserEntities;
         try {
-            queryForAllUsers = this.entityManager.createQuery("SELECT  h FROM users h", UserEntity.class);
+            queryForAllUsers = this.entityManager.createQuery("SELECT  a FROM User a", UserEntity.class);
             allUserEntities = queryForAllUsers.getResultList();
         } catch (RuntimeException e) {
             throw new NoElementException("Couldn't get all users!", e);

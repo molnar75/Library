@@ -2,7 +2,7 @@ package hu.simplesoft.dualis.library.web.request.borrowedbook;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import hu.simplesoft.dualis.library.service.dto.BookDto;
 import hu.simplesoft.dualis.library.service.dto.LibraryDto;
@@ -10,19 +10,19 @@ import hu.simplesoft.dualis.library.service.dto.UserDto;
 
 public class CreateBorrowedBookRequest {
 
-    @NotBlank
+    @NotNull
     private Date borrowedDate;
     
-    @NotBlank
+    @NotNull
     private Date bringBackDate;
     
-    @NotBlank
+    @NotNull
     private BookDto book;
     
-    @NotBlank
+    @NotNull
     private UserDto user;
     
-    @NotBlank
+    @NotNull
     private LibraryDto library;
 
     public Date getBorrowedDate() {

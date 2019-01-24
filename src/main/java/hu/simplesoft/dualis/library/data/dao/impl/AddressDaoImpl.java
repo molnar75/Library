@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import hu.simplesoft.dualis.library.data.dao.AddressDao;
 import hu.simplesoft.dualis.library.data.entity.AddressEntity;
@@ -14,18 +15,20 @@ import hu.simplesoft.dualis.library.data.validator.ObjectValidator;
 import hu.simplesoft.dualis.library.exception.PersistException;
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
-@Transactional
+@Service
 public class AddressDaoImpl implements AddressDao {
 
     @Autowired
     private AddressRepository addressRepository;
 
+    @Transactional
     @Override
     public void createAddress(AddressDto addressDto) throws PersistException {
         AddressEntity newAddressEntity = AddressMapper.AddressDtoToEntity(addressDto);
         this.addressRepository.createAddress(newAddressEntity);
     }
 
+    @Transactional
     @Override
     public void updateAddress(AddressDto addressDto) throws PersistException {
         AddressEntity addressEntityForUpdate = this.addressRepository.getAddressById(addressDto.getId());
@@ -37,6 +40,7 @@ public class AddressDaoImpl implements AddressDao {
         this.addressRepository.updateAddress(addressEntityForUpdate);
     }
 
+    @Transactional
     @Override
     public void deleteAddress(long addressId) throws PersistException {
         AddressEntity addressEntityForDelete = this.addressRepository.getAddressById(addressId);

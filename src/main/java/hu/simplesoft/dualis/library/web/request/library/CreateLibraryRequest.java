@@ -1,6 +1,7 @@
 package hu.simplesoft.dualis.library.web.request.library;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import hu.simplesoft.dualis.library.service.dto.AddressDto;
 
@@ -9,7 +10,7 @@ public class CreateLibraryRequest {
     @NotBlank
     private String name;
     
-    @NotBlank
+    @NotNull
     private AddressDto address;
 
     public String getName() {

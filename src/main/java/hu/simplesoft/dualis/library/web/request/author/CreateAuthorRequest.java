@@ -3,6 +3,7 @@ package hu.simplesoft.dualis.library.web.request.author;
 import java.util.Date;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -12,7 +13,7 @@ public class CreateAuthorRequest {
     @NotBlank
     private String name;
     
-    @NotBlank
+    @NotNull
     private Date birthDate;
  
     public CreateAuthorRequest() {

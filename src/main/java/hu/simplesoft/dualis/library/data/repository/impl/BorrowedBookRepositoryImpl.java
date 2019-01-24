@@ -64,7 +64,7 @@ public class BorrowedBookRepositoryImpl implements BorrowedBookRepository {
         TypedQuery<BorrowedBookEntity> queryForAllBorrowedBooks;
         List<BorrowedBookEntity> allBorrowedBookEntities;
         try {
-            queryForAllBorrowedBooks = this.entityManager.createQuery("SELECT  h FROM borrowed_books h", BorrowedBookEntity.class);
+            queryForAllBorrowedBooks = this.entityManager.createQuery("SELECT  a FROM BorrowedBooks a", BorrowedBookEntity.class);
             allBorrowedBookEntities = queryForAllBorrowedBooks.getResultList();
         } catch (RuntimeException e) {
             throw new NoElementException("Couldn't get all borrowed books!", e);

@@ -64,7 +64,7 @@ public class AddressRepositoryImpl implements AddressRepository {
         TypedQuery<AddressEntity> queryForAllAddresses;
         List<AddressEntity> allAddressEntities;
         try {
-            queryForAllAddresses = this.entityManager.createQuery("SELECT  h FROM address h", AddressEntity.class);
+            queryForAllAddresses = this.entityManager.createQuery("SELECT a FROM Address a", AddressEntity.class);
             allAddressEntities = queryForAllAddresses.getResultList();
         } catch (RuntimeException e) {
             throw new NoElementException("Couldn't get all addresses!", e);
